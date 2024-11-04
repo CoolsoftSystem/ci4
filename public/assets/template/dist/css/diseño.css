@@ -1,0 +1,159 @@
+#hola {
+    background-color: blue !important;
+}
+
+#menu {
+    /*background-color: rgb(49, 114, 22) !important;*/
+    /*background-color: rgb(119, 30, 110) !important;*/
+}
+#menu2 {
+    /*background-color: rgb(119, 30, 110) !important;*/
+}
+#menu3 {
+   /* background-color: rgb(255, 255, 255) !important;*/
+}
+#fila1 {
+    border-style: none solid none solid ;
+    border-top: solid;
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0) rgb(3, 253, 16) rgb(0, 0, 0) rgb(3, 253, 16);
+    vertical-align: middle;
+    width: 12px !important;
+
+}
+#fila2 {
+    border-style:   solid ;
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0)rgb(255, 14, 195) rgb(0, 0, 0) rgb(255, 14, 195);
+    vertical-align: middle;
+}
+#fila3 {
+    border-style:   solid ;
+    border-width: 1px 10px 1px 10px;
+    border-color: rgb(0, 0, 0) rgb(3, 103, 253) rgb(0, 0, 0) rgb(3, 103, 253);
+    vertical-align: middle;
+}
+#fila4 {
+    border-style:   solid ;
+
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0) rgb(199, 253, 3) rgb(12, 14, 8) rgb(199, 253, 3);
+    vertical-align: middle;
+
+}
+#descripcion{
+    border-style: solid;
+    border-top: solid;
+    border-width: 1px;
+    text-align: center;
+    max-width: auto;
+}
+#datos{
+
+    margin-top: 0.5%;
+}
+#cuerpo{
+   margin-top: 2.5%;
+}
+#H1A{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    color: rgb(0, 0, 0);
+    text-align: left;
+    border-style: none none solid none;
+    border-width: 1px;
+}
+#H1B{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    color: rgb(119, 30, 110);
+    text-align: right;
+}
+#tablaProgreso{
+    margin-top: 2%;
+}
+#botonVioleta{
+    background-color: rgb(16, 153, 226);
+    color: white;
+    border-radius: 2%;
+
+}
+
+
+#logo2 {
+    background-color: white;
+    padding-left: 15%;
+
+}
+#logo2 img{
+  height: 60% !important;
+  width: 60% !important;
+}
+
+#imglogin img{
+  height: 80% !important;
+  width: 80% !important;
+
+}
+
+#vacia1 {
+    border-style: none solid none solid ;
+    border-top: solid;
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0) rgb(3, 253, 16) rgb(0, 0, 0) rgb(3, 253, 16);
+    vertical-align: middle;
+    height: 40px !important;
+    width: 12px !important;
+
+}
+#vacia2 {
+    border-style:   solid ;
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0)rgb(255, 14, 195) rgb(0, 0, 0) rgb(255, 14, 195);
+    vertical-align: middle;
+    height: 40px !important;
+    width: 12px !important;
+}
+#vacia3 {
+    border-style:   solid ;
+    border-width: 1px 10px 1px 10px;
+    border-color: rgb(0, 0, 0) rgb(3, 103, 253) rgb(0, 0, 0) rgb(3, 103, 253);
+    vertical-align: middle;
+    height: 40px !important;
+    width: 12px !important;
+
+}
+#vacia4 {
+    border-style:   solid ;
+    border-width: 1px 10px 1px 10px;
+    border-color:  rgb(0, 0, 0) rgb(199, 253, 3) rgb(12, 14, 8) rgb(199, 253, 3);
+    vertical-align: middle;
+    height: 40px !important;
+    width: 12px !important;
+
+}
+
+
+#marcaFooter {
+    /*color: rgb(119, 30, 110) !important ;*/
+}
+
+#img{
+    height: 50px;
+}
+#imgSmall{
+    height: 30px;
+}
+
+#login{
+   margin-top: -50px !important;
+
+}
+
+.user-image img {
+    height: 20px !important;
+}
+
+#tareaDesarrollada{
+    width: 100px !important;
+}
