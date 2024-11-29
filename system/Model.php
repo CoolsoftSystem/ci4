@@ -97,6 +97,8 @@ class Model extends BaseModel
      */
     protected $table;
 
+    protected $returnType = 'object'; // Devuelve objetos por defecto
+
     /**
      * The table's primary key.
      *

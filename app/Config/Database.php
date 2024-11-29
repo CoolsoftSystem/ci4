@@ -5,32 +5,13 @@ use CodeIgniter\Database\Config;
 
 class Database extends Config
 {
-    public $default = [
-        'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'u198557509_Test', // Cambia según tu usuario
-        'password' => 'sistemas2024Galtech', // Cambia según tu contraseña
-        'database' => 'u198557509_Testing', // Cambia según tu base de datos
-        'DBDriver' => 'MySQLi',
-        'DBPrefix' => '',
-        'pConnect' => false,
-        'DBDebug'  => (ENVIRONMENT !== 'production'),
-        'cacheOn'  => false,
-        'cachedir' => '',
-        'charSet'  => 'utf8',
-        'DBCollat' => 'utf8_unicode_ci',
-        'swap_pre' => '',
-        'encrypt'  => false,
-        'compress' => false,
-        'strictOn' => false,
-        'Failover' => [],
-        'saveQueries' => true,
-        'port'     => '3306',
-    ];
+    public string $defaultGroup = 'productionDB';
+    public string $testGroup = 'testDB';
 
-    public $tests = [
+    // public string $defaultGroup = 'default';
+    public $testDB = [
         'DSN'      => '',
-        'hostname' => 'localhost',
+        'hostname' => '45.152.46.1',
         'username' => 'u198557509_Test',
         'password' => 'sistemas2024Galtech',
         'database' => 'u198557509_Testing',
@@ -40,15 +21,38 @@ class Database extends Config
         'DBDebug'  => true,
         'cacheOn'  => false,
         'cachedir' => '',
-        'charSet'  => 'utf8',
-        'DBCollat' => 'utf8_unicode_ci',
+        'charset'  => 'utf8mb4',
+        'DBCollat' => 'utf8mb4_unicode_ci',
         'swap_pre' => '',
         'encrypt'  => false,
         'compress' => false,
         'strictOn' => false,
         'Failover' => [],
         'saveQueries' => true,
-        'port'     => '3306',
+        'port'     => 3306,
+    ];
+
+    public $productionDB = [
+        'DSN'      => '',
+        'hostname' => '45.152.46.1',
+        'username' => 'u198557509_biosgastro',
+        'password' => 'sistemas2024Galtech',
+        'database' => 'u198557509_biosgastro',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'cacheOn'  => false,
+        'cachedir' => '',
+        'charset'  => 'utf8mb4',
+        'DBCollat' => 'utf8mb4_unicode_ci',
+        'swap_pre' => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'Failover' => [],
+        'saveQueries' => true,
+        'port'     => 3306,
     ];
 }
 

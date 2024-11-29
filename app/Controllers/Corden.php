@@ -51,7 +51,8 @@ class Corden extends BaseController
         $data = [
             'ordenindex' => $ordenes,
             'ordencompletas' => $this->morden->mselectordencompletas(),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session // Pasa la sesión a la vista
         ];
 
         foreach ($data['ordenindex'] as $orden) {
