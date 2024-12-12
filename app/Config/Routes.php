@@ -15,3 +15,4 @@ $routes->get('clogout', 'Clogin::clogout');
 
 $routes->get('/info', 'Home');
 $routes->get('mantenimiento/corden', 'Corden::index');
+$routes->get('mantenimiento/cparteorden/listar/(:num)', 'Cparteorden::listar/$1');

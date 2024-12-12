@@ -47,7 +47,7 @@ class Mfactura extends Model
     $resultado = $query = $this->db->query("SELECT f.N_factura 
     FROM factura f 
     where f.id_orden=$id;");
-    return $resultado->result();
+    return $resultado->getResult();
 
 }
 //
