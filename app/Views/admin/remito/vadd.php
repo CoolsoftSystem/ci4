@@ -11,33 +11,33 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <?php if ($this->session->flashdata('error')) : ?>
+                            <?php if (session()->getFlashdata('error')) : ?>
                                 <div class="alert alert-danger">
-                                    <p><?php echo $this->session->flashdata('error') ?></p>
+                                    <p><?= session()->getFlashdata('error') ?></p>
                                 </div>
                             <?php endif; ?>
-                            <form action="<?php echo base_url(); ?>mantenimiento/cremitos/cinsert" method="POST">
+                            <form action="<?= base_url(); ?>mantenimiento/cremitos/cinsert" method="POST">
                                 <div class="col-sm-2 form-group">
                                   <label for="fecha">FECHA</label>
-                                  <input type="date" id="txtfecha" name="txtfecha" class="form-control" min="2020-01-01" max="2100-12-31" value="<?php echo set_value('txtfecha') ?>" required >
+                                  <input type="date" id="txtfecha" name="txtfecha" class="form-control" min="2020-01-01" max="2100-12-31" value="<?= old('txtfecha') ?>" required>
+                                  <?= isset($validation) ? display_error($validation, 'txtfecha') : ''; ?>
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label" for="tipo_cliente">CLIENTE (*)</label>
-                                    <?$this->select_items->sin_buscador($tipo_cliente_select, '','tipo_cliente','1', 'required');?>
-                                </div>
-                                <div class=" col-sm-12 form-group">
-                                    <label for="obser">OBSERVACIONES</label>
-                                    <input type="text" id="txtobservaciones" name="txtobservaciones" maxlength="200"class="form-control" value="<?php echo set_value('txtobservaciones') ?>">
+                                    <?= $select_items->sin_buscador($tipo_cliente_select, '', 'tipo_cliente', '1', 'required'); ?>
                                 </div>
                                 <div class="col-sm-12 form-group">
-                                    <a class="btn btn-info" href="<?php echo base_url(); ?>mantenimiento/cremitos">Volver</a>
+                                    <label for="obser">OBSERVACIONES</label>
+                                    <input type="text" id="txtobservaciones" name="txtobservaciones" maxlength="200" class="form-control" value="<?= old('txtobservaciones') ?>">
+                                    <?= isset($validation) ? display_error($validation, 'txtobservaciones') : ''; ?>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <a class="btn btn-info" href="<?= base_url(); ?>mantenimiento/cremitos">Volver</a>
                                     <button type="submit" class="btn btn-success">Guardar</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
-                   
                 </div>
             </div>
         </div>
@@ -45,11 +45,7 @@
 </div>
 
 <script type="text/javascript">
-
-  $('#buscar1').on('click',function(){
+  $('#buscar1').on('click', function() {
       $("#exampleModal").modal("show");
   });
-
- 
-
 </script>

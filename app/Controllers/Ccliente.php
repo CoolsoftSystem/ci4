@@ -12,6 +12,7 @@ class Ccliente extends BaseController
     protected $mcliente;
     protected $mroles;
     protected $mcombo;
+    protected $session;
 
     public function __construct()
     {
@@ -19,6 +20,8 @@ class Ccliente extends BaseController
         $this->mcliente = new Mcliente();
         $this->mroles = new Mroles();
         $this->mcombo = new Mcombo();
+
+        $this->session = session();
 
         // Verificar sesión
         if (!session()->get('login')) {
@@ -31,7 +34,8 @@ class Ccliente extends BaseController
         $idrol = session()->get('idRol');
         $data = [
             'clienteindex' => $this->mcliente->mselectcliente(),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -44,7 +48,8 @@ class Ccliente extends BaseController
     {
         $idrol = session()->get('idRol');
         $data = [
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -111,7 +116,8 @@ class Ccliente extends BaseController
         $idrol = session()->get('idRol');
         $data = [
             'clienteedit' => $this->mcliente->midupdatecliente($id),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

@@ -76,7 +76,8 @@ class Corden extends BaseController
         $idrol = $this->session->get("idRol");
         $data = [
             'tipo_cliente_select' => $this->morden->cliente_listar_select(),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -113,7 +114,8 @@ class Corden extends BaseController
             'ordenedit' => $this->morden->midupdateordenyfacturas($id),
             'roles' => $this->mroles->obtener($idrol),
             'cliente_select' => $this->morden->cliente_listar_select2(),
-            'model' => $this->morden->obtener($data['ordenedit']->IdCliente)
+            'model' => $this->morden->obtener($data['ordenedit']->IdCliente),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

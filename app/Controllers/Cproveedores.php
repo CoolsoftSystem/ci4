@@ -47,11 +47,12 @@ class Cproveedores extends BaseController
     /**
      * Formulario para agregar un proveedor.
      */
-    public function add()
+    public function cadd()
     {
         $idRol = $this->session->get('idRol');
         $data = [
-            'roles' => $this->mroles->obtener($idRol)
+            'roles' => $this->mroles->obtener($idRol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -93,7 +94,8 @@ class Cproveedores extends BaseController
         $idRol = $this->session->get('idRol');
         $data = [
             'proveedor' => $this->mproveedores->selectInfoProveedor($id),
-            'roles' => $this->mroles->obtener($idRol)
+            'roles' => $this->mroles->obtener($idRol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

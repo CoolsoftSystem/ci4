@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SelectItems;
+
 use App\Models\Mremito;
 use App\Models\Mroles;
 use App\Models\Mcombo;
@@ -53,11 +55,14 @@ class Cremitos extends BaseController
 
     public function cadd()
     {
+        $selectItems = new SelectItems();
         $idrol = $this->session->get('idRol');
         $data['tipo_cliente_select'] = $this->mremito->cliente_listar_select();
 
         $datos = [
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'select_items' => $selectItems,
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -120,7 +125,8 @@ class Cremitos extends BaseController
             'remitoedit' => $this->mremito->midupdateremito($id),
             'roles' => $this->mroles->obtener($idrol),
             'cliente_select' => $this->mremito->cliente_listar_select2(),
-            'model' => $this->mremito->obtener($data['remitoedit']->IdCliente)
+            'model' => $this->mremito->obtener($data['remitoedit']->IdCliente),
+            'session' => $this->session
         ];
 
         $data['producto'] = $this->mremito->obtenerProducto($data['remitoedit']->IdRemito);
@@ -168,7 +174,8 @@ class Cremitos extends BaseController
         $idrol = $this->session->get('idRol');
         $data = [
             'productoedit' => $this->mremito->midupdateproducto($id),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -217,7 +224,8 @@ class Cremitos extends BaseController
             'remito' => $this->mremito->midupdateremito($id),
             'roles' => $this->mroles->obtener($idrol),
             'cliente' => $this->mcliente->midupdatecliente($data['remito']->IdCliente),
-            'producto' => $this->mremito->obtenerProducto($id)
+            'producto' => $this->mremito->obtenerProducto($id),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

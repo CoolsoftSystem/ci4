@@ -51,6 +51,7 @@ class Ctecnico extends BaseController
 
         $data = [
             'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -96,6 +97,7 @@ class Ctecnico extends BaseController
         $data = [
             'tecnicoedit' => $this->mtecnico->getTecnicoById($id),
             'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SelectItems;
+
 use App\Models\Musuario;
 use App\Models\Mroles;
 use App\Models\Mcombo;
@@ -41,10 +43,14 @@ class Cusuario extends Controller
 
     public function cadd()
     {
+
+        $selectItems = new SelectItems();
         $idrol = session()->get("idRol");
         $data = [
             'roles' => $this->mroles->obtener($idrol),
             'usuario_select' => $this->mroles->mselectrolessolo(),
+            'select_items' => $selectItems,
+            'session' => $this->session
         ];
 
         return view('layouts/header')
@@ -93,6 +99,7 @@ class Cusuario extends Controller
             'roles' => $this->mroles->obtener($idrol),
             'usuario_select' => $this->musuario->usuario_listar_select(),
             'model' => $this->musuario->obtener($data['usuarioedit']->idRol),
+            'session' => $this->session
         ];
 
         return view('layouts/header')

@@ -36,6 +36,7 @@ class Cparteorden extends BaseController {
             'ordenindex' => $this->mparteorden->mselectinfoparteorden($id),
             'roles' => $this->mroles->obtener($idrol),
             'Gastos' => $this->morden->consultaGatosOrden($id),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -70,6 +71,7 @@ class Cparteorden extends BaseController {
             $data = [
                 'materialedit' => $this->mparteorden->midupdatematerial($id),
                 'roles' => $this->mroles->obtener($idrol),
+                'session' => $this->session
             ];
             echo view('layouts/header');
             echo view('layouts/aside', $data);

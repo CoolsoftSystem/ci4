@@ -11,9 +11,9 @@
                <hr>
                <div class="row">
                    <div class="col-md-12">
-                       <?php if($this->session->flashdata('error')):?>
+                       <?php if($session->getFlashdata('error')):?>
                         <div class="alert alert-danger">
-                            <p><?php echo $this->session->flashdata('error') ?> </p>
+                            <p><?php echo $session->getFlashdata('error') ?> </p>
                         </div>
                         <?php endif ; ?>
                         <form action="<?php echo base_url();?>mantenimiento/cparteorden/cupdateMat" method="POST">

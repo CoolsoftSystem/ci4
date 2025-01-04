@@ -47,7 +47,8 @@ class Croles extends BaseController
         $data['roles_select'] = $this->mroles->roles_listar_select2();
 
         $datos = [
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -96,7 +97,8 @@ class Croles extends BaseController
         $data = [
             'rolesedit' => $rolesedit,
             'roles' => $this->mroles->obtener($idrol),
-            'model' => $this->mroles->obtener($rolesedit->idRol)
+            'model' => $this->mroles->obtener($rolesedit->idRol),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+
+use App\Libraries\SelectItems;
+
 use App\Models\Mcliente;
 use App\Models\Mequipos;
 use App\Models\Mroles;
@@ -27,10 +30,15 @@ class Cequipos extends BaseController
         $this->mequipos = new Mequipos();
         $this->mroles = new Mroles();
         $this->mcombo = new Mcombo();
+        $selectItems = new SelectItems();
+
+      
     }
 
     public function index()
     {
+        
+
         $idrol = $this->session->get('idRol');
         $data = [
             'equipoindex' => $this->mequipos->mselectequipos(),
@@ -46,10 +54,14 @@ class Cequipos extends BaseController
 
     public function cadd()
     {
+        $selectItems = new SelectItems();
+       
         $idrol = $this->session->get('idRol');
         $data['tipo_cliente_select'] = $this->mequipos->cliente_listar_select();
         $datos = [
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'select_items' => $selectItems, 
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -99,7 +111,8 @@ class Cequipos extends BaseController
             'equiposedit' => $this->mequipos->midupdateequipos($id),
             'roles' => $this->mroles->obtener($idrol),
             'cliente_select' => $this->mequipos->cliente_listar_select2(),
-            'model' => $this->mequipos->obtener($data['equiposedit']->id_cliente)
+            'model' => $this->mequipos->obtener($data['equiposedit']->id_cliente),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');
@@ -149,7 +162,8 @@ class Cequipos extends BaseController
         $data = [
             'equiposindex' => $this->mequipos->midupdateequipos($id),
             'roles' => $this->mroles->obtener($idrol),
-            'model' => $this->mequipos->obtener($data['equiposindex']->id_cliente)
+            'model' => $this->mequipos->obtener($data['equiposindex']->id_cliente),
+            'session' => $this->session
         ];
 
         echo view('layouts/header');

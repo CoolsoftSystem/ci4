@@ -62,7 +62,8 @@ class Ctrabajos extends BaseController
 
             $data = [
                 'ordenindex' => $ordenes,
-                'roles' => $this->mroles->obtener($idrol)
+                'roles' => $this->mroles->obtener($idrol),
+                'session' => $this->session
             ];
 
             return view('layouts/header')
