@@ -6,38 +6,41 @@ use CodeIgniter\Model;
 
 class Mtecnico extends Model
 {
+    protected $table = 'tecnico'; // Nombre de la tabla
+    protected $primaryKey = 'Dni'; // Clave primaria
+    protected $allowedFields = ['Dni', 'Nombre', 'Activo']; // Campos permitidos para inserción/actualización
+    protected $useTimestamps = false; // Cambiar si usas campos 'created_at' y 'updated_at'
 
-    //MOSTRAR tecnico
-    public function mselecttecnico(){
-       $this->db->where('Activo =','1');
-        $this->db->order_by("Dni", "asc");
-        $resultado =$this->db->get('tecnico');
-
-        return $resultado->result();
-    }
-    //INSERTAR tecnico
-    public function minserttecnico($data){
-        return  $this->db->insert('tecnico',$data);
-    }
-
-    //OBTENER DATOS
-    public function midupdatetecnico($id){
-       $this->db->where('Dni', $id);
-       $resultado = $this->db->get('tecnico');
-       return $resultado->row();
+    // Mostrar técnico activo
+    public function selectTecnicosActivos()
+    {
+        return $this->where('Activo', '1')
+                    ->orderBy('Dni', 'asc')
+                    ->findAll();
     }
 
-    //MODIFICAR tecnico
-    public function mupdatetecnico($id, $data){
+    // Insertar técnico
+    public function insertTecnico(array $data)
+    {
+        return $this->insert($data);
+    }
 
-        $this->db->where('Dni', $id);
-        return $this->db->update('tecnico', $data);
-     }
-     //Traer tecnico
-    public function mselectinfotecnico($id){
-        $this->db->where('Dni =',"$id");
-        $resultado =$this->db->get('tecnico');
-        return $resultado->row();
+    // Obtener datos de un técnico por DNI
+    public function getTecnicoById($id)
+    {
+        return $this->where('Dni', $id)->first();
+    }
+
+    // Modificar técnico
+    public function updateTecnico($id, array $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    // Obtener información específica de un técnico por DNI
+    public function selectInfoTecnico($id)
+    {
+        return $this->where('Dni', $id)->first();
     }
 }
-?>
+

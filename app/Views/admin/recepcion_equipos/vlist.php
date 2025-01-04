@@ -13,9 +13,9 @@
                         <a href="<?php echo base_url(); ?>mantenimiento/cequipos/cadd" class="btn btn-flat" id="botonVioleta"><span class="fa-solid fa-plus"></span> Nueva Orden</a>
                     </div>
                 </div>
-                <?php if ($this->session->flashdata('correcto')) : ?>
+                <?php if ($session->getFlashdata('correcto')) : ?>
                     <div class="alert alert-success">
-                        <p><?php echo $this->session->flashdata('correcto') ?></p>
+                        <p><?php echo $session->getFlashdata('correcto') ?></p>
                     </div>
                 <?php endif; ?>
                 <hr>

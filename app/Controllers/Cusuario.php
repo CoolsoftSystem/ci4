@@ -11,11 +11,13 @@ class Cusuario extends Controller
 {
     protected $musuario;
     protected $mroles;
+    protected $session;
 
     public function __construct()
     {
         $this->musuario = new Musuario();
         $this->mroles = new Mroles();
+        $this->session = session();
         
         if (!session()->get('login')) {
             return redirect()->to(base_url());
@@ -28,6 +30,7 @@ class Cusuario extends Controller
         $data = [
             'usuarioindex' => $this->musuario->mselectusuario(),
             'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
         
         return view('layouts/header')

@@ -11,9 +11,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         
-                            <?php if ($this->session->flashdata('correcto')) : ?>
+                            <?php if ($session->getFlashdata('correcto')) : ?>
                                 <div class="alert alert-success">
-                                    <p><?php echo $this->session->flashdata('correcto') ?></p>
+                                    <p><?php echo $session->getFlashdata('correcto') ?></p>
                                 </div>
                             <?php endif; ?>
                             <div class="col-md-12" style="padding-left:0">

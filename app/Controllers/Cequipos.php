@@ -34,7 +34,8 @@ class Cequipos extends BaseController
         $idrol = $this->session->get('idRol');
         $data = [
             'equipoindex' => $this->mequipos->mselectequipos(),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session // Pasa la sesión a la vista
         ];
 
         echo view('layouts/header');

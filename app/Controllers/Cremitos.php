@@ -41,7 +41,8 @@ class Cremitos extends BaseController
 
         $data = [
             'remitoindex' => $remitos,
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session // Pasa la sesión a la vista
         ];
 
         echo view('layouts/header');

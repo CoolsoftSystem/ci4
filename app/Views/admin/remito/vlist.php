@@ -13,9 +13,9 @@
                         <a href="<?php echo base_url(); ?>mantenimiento/cremitos/cadd" class="btn btn-flat" id="botonVioleta"><span class="fa fa-plus"></span> Agregar remito</a>
                     </div>
                 </div>
-                <?php if ($this->session->flashdata('correcto')) : ?>
+                <?php if ($session->getFlashdata('correcto')) : ?>
                     <div class="alert alert-success">
-                        <p><?php echo $this->session->flashdata('correcto') ?></p>
+                        <p><?php echo $session->getFlashdata('correcto') ?></p>
                     </div>
                 <?php endif; ?>
                 <hr>

@@ -22,7 +22,7 @@ class Musuario extends Model
     // Mostrar usuarios
     public function mselectusuario()
     {
-        return $this->select('t.nombre_tipo, t.idRol, u.idUsuario, u.nombre, u.email')
+        return $this->select('t.nombre_tipo, t.idRol, usuarios.idUsuario, usuarios.nombre, usuarios.email')
                     ->join('tipousuario t', 't.idRol = usuarios.idRol')
                     ->where('usuarios.anulado', 0)
                     ->findAll();

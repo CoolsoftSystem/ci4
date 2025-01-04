@@ -6,39 +6,64 @@ use CodeIgniter\Model;
 
 class Mproveedores extends Model
 {
+    protected $table = 'proveedores'; // Tabla asociada
+    protected $primaryKey = 'IdProveedores'; // Llave primaria
+    protected $allowedFields = ['Nombre', 'Direccion', 'Telefono', 'Anulado']; // Campos permitidos para insertar/actualizar
 
-    //MOSTRAR proveedores
-    public function mselectproveedores(){
-        $this->db->where('Anulado =','0');
-        $this->db->order_by("IdProveedores", "asc");
-        $resultado =$this->db->get('proveedores');
-
-        return $resultado->result();
-    }
-    //INSERTAR proveedores
-    public function minsertproveedores($data){
-        return  $this->db->insert('proveedores',$data);
-    }
-
-    //OBTENER DATOS
-    public function midupdateproveedores($id){
-       $this->db->where('IdProveedores', $id);
-       $resultado = $this->db->get('proveedores');
-       return $resultado->row();
+    /**
+     * Obtener todos los proveedores activos.
+     *
+     * @return array
+     */
+    public function selectProveedoresActivos()
+    {
+        return $this->where('Anulado', '0')
+                    ->orderBy('IdProveedores', 'asc')
+                    ->findAll();
     }
 
-   
+    /**
+     * Insertar un nuevo proveedor.
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function insertProveedor(array $data)
+    {
+        return $this->insert($data);
+    }
 
-    //MODIFICAR proveedores
-    public function mupdateproveedores($id, $data){
-        $this->db->where('IdProveedores', $id);
-        return $this->db->update('proveedores', $data);
-     }
-     //Traer proveedores
-    public function mselectinfoproveedores($id){
-        $this->db->where('IdProveedores =',"$id");
-        $resultado =$this->db->get('proveedores');
-        return $resultado->row();
+    /**
+     * Obtener información de un proveedor por ID.
+     *
+     * @param int $id
+     * @return array|null
+     */
+    public function getProveedorById($id)
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * Actualizar la información de un proveedor por ID.
+     *
+     * @param int $id
+     * @param array $data
+     * @return bool
+     */
+    public function updateProveedor($id, array $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    /**
+     * Traer información detallada de un proveedor por ID.
+     *
+     * @param int $id
+     * @return array|null
+     */
+    public function selectInfoProveedor($id)
+    {
+        return $this->find($id);
     }
 }
-?>

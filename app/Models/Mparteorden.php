@@ -6,264 +6,187 @@ use CodeIgniter\Model;
 
 class Mparteorden extends Model
 {
+    protected $table = 'parteorden';
+    protected $primaryKey = 'IdParte';
+    protected $allowedFields = [
+        'IdOrden', 'Descripcion', 'Cantidad', 'Precio', 'Anulado'
+    ];
 
-    //MOSTRAR parteorden
-    public function mselectparteorden($id){
-        $this->db->where('Anulado =','0');
-        $this->db->where('IdOrden =',"$id");
-        $resultado =$this->db->get('parteorden');
-        return $resultado->result();
-    }
-    //INSERTAR parteorden
-    public function minsertparteorden($data){
-          $this->db->insert('parteorden',$data);
-          return $this->db->insert_id();
-    }
-
-    //INSERTAR TecnicoOrden
-    public function insertTecnicoOrden($data){
-      return $this->db->insert('tecnicoorden',$data);
+    // MOSTRAR parteorden
+    public function mselectparteorden($id)
+    {
+        return $this->where('Anulado', '0')
+                    ->where('IdOrden', $id)
+                    ->findAll();
     }
 
-    //OBTENER DATOS
-    public function midupdateparteorden($id){
-       $this->db->where('IdParte', $id);
-       $resultado = $this->db->get('parteorden');
-       return $resultado->row();
-    }
-    //OBTENER DATOS Material
-    public function midupdatematerial($id){
-       $this->db->where('IdMat', $id);
-       $resultado = $this->db->get('material');
-       return $resultado->row();
+    // INSERTAR parteorden
+    public function minsertparteorden($data)
+    {
+        $this->insert($data);
+        return $this->insertID();
     }
 
-
-    //MODIFICAR parteorden
-    public function mupdateparteorden($idparte, $idorden,$data){
-        $this->db->where('IdParte', $idparte);
-        $this->db->where('IdOrden', $idorden);
-        return $this->db->update('parteorden', $data);
-     }
-
-     public function mselectinfoparteorden($id){
-
-        $resultado =	$query = $this->db->query("SELECT o.IdOrden , o.FechaRecepcion , o.TareaDesarrollar , o.Precio , o.IdCliente , o.Completada , o.Eliminada , c.Nombre
-        FROM orden o
-        INNER JOIN cliente c ON o.IdCliente = c.IdCliente where o.IdOrden=$id;");
-        return $resultado->row();
-    }
-    public function tecnico_listar_select(){//
-      $query=$this->db->query("SELECT DISTINCT tecnico.Dni  ID ,tecnico.Nombre as NOMBRE
-                              FROM tecnico WHERE tecnico.Activo = 1
-                              ORDER BY tecnico.Nombre ASC " );
-    return $query->result();
+    // INSERTAR TecnicoOrden
+    public function insertTecnicoOrden($data)
+    {
+        return $this->db->table('tecnicoorden')->insert($data);
     }
 
-    public function tecnico_listar_select2(){//
-      $query=$this->db->query("SELECT DISTINCT tecnico.Dni IdTecnico ,tecnico.Nombre as NOMBRE
-                              FROM tecnico WHERE tecnico.Activo = 1
-                              ORDER BY tecnico.Nombre ASC " );
-    return $query->result();
+    // OBTENER DATOS parteorden
+    public function midupdateparteorden($id)
+    {
+        return $this->find($id);
     }
 
-    //Trear Materiales Parte Orden
-    public function obtenerMaterial($idOrden, $idParte){
-        $this->db->where('IdOrden =',"$idOrden");
-        $this->db->where('IdParte =',"$idParte");
-        $resultado =$this->db->get('material');
-        return $resultado->result();
+    // OBTENER DATOS Material
+    public function midupdatematerial($id)
+    {
+        return $this->db->table('material')->where('IdMat', $id)->get()->getRow();
     }
 
-    //Trear Material con IdMat
-    public function obtenerMaterialconIdMat($IdMat){
-
-        $this->db->where('IdMat =',"$IdMat");
-        $resultado =$this->db->get('material');
-        return $resultado->row();
+    // MODIFICAR parteorden
+    public function mupdateparteorden($idparte, $idorden, $data)
+    {
+        return $this->where('IdParte', $idparte)
+                    ->where('IdOrden', $idorden)
+                    ->set($data)
+                    ->update();
     }
 
-
-
-    //Eliminar Material
-    public function mdeletematerial($IdMat){
-
-        $this->db->where('IdMat =',"$IdMat");
-        $resultado =$this->db->delete('material');
-
+    // INFORMACION parteorden
+    public function mselectinfoparteorden($id)
+    {
+        $query = $this->db->query(
+            "SELECT o.IdOrden, o.FechaRecepcion, o.TareaDesarrollar, o.Precio, o.IdCliente, o.Completada, o.Eliminada, c.Nombre
+             FROM orden o
+             INNER JOIN cliente c ON o.IdCliente = c.IdCliente
+             WHERE o.IdOrden = ?",
+            [$id]
+        );
+        return $query->getRow();
     }
 
-    //MOSTRAR parteorden
-    public function mselectTecnicoIdParte($id){
-
-        $resultado =	$query = $this->db->query("SELECT t.IdParte , t.Dni , tc.Nombre FROM tecnicoorden t
-           INNER JOIN tecnico tc ON t.Dni = tc.Dni where t.IdParte=$id ;");
-        return $resultado->result();
+    // LISTAR tecnicos
+    public function tecnico_listar_select()
+    {
+        $query = $this->db->query(
+            "SELECT DISTINCT tecnico.Dni AS ID, tecnico.Nombre AS NOMBRE
+             FROM tecnico
+             WHERE tecnico.Activo = 1
+             ORDER BY tecnico.Nombre ASC"
+        );
+        return $query->getResult();
     }
 
-    public function mselectTecnicoId($id){
-
-        $resultado =	$query = $this->db->query("SELECT tc.Nombre FROM tecnicoorden t
-           INNER JOIN tecnico tc ON t.Dni = tc.Dni where tc.Activo=1 and t.IdParte=$id  ;");
-         return $resultado->result();
-         
+    public function tecnico_listar_select2()
+    {
+        return $this->tecnico_listar_select();
     }
 
-
-
-
-    //MODIFICAR material
-    public function mupdatematerial($id, $data){
-        $this->db->where('IdMat', $id);
-        return $this->db->update('material', $data);
-     }
-
-
-
-    //CargarMaterial
-
-    public function cargarMat($data){
-
-        $IdParte=$data['IdParte'];
-        $IdOrden=$data['IdOrden'];
-        $Cantidad=$data['Cantidad'];
-        $Descripcion=$data['Descripcion'];
-        $Precio=$data['Precio'];
-        $this->db->where('IdOrden =',"$IdOrden");
-        $this->db->where('IdParte =',"$IdParte");
-        $this->db->insert('material',$data);
-        $IdMat=$this->db->insert_id();
-
-        return $linka= '<tr>
-                    <td>'.$IdMat.'</td>
-                    <td>'.$Descripcion.'</td>
-                    <td>'.$Cantidad.'</td>
-                    <td>'.$Precio.'</td>
-                    <td>
-                        <div class="btn-group">
-                            <a title="Modificar" href="@'.$IdMat.'" class="btn btn-info ">
-                                <span class="fa fa-pencil"></span>
-                            </a>
-                            <a title="Eliminar" href="_'.$IdMat.'" class="btn btn-danger btn-remove">
-                                <span class="fa fa-remove"></span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>';
+    // OBTENER Materiales de Parte Orden
+    public function obtenerMaterial($idOrden, $idParte)
+    {
+        return $this->db->table('material')
+                        ->where('IdOrden', $idOrden)
+                        ->where('IdParte', $idParte)
+                        ->get()
+                        ->getResult();
     }
 
-    //Cargar Tecnico Orden
-
-    public function cargarTecnicoOrden($data){
-
-        $IdParte=$data['IdParte'];
-        $Dni=$data['Dni'];
-
-        $this->db->insert('tecnicoorden',$data);
-
+    public function obtenerMaterialconIdMat($IdMat)
+    {
+        return $this->db->table('material')->where('IdMat', $IdMat)->get()->getRow();
     }
 
-    //Eliminar TecnicoOrden
-    public function mdeletetecnicoOrden($IdParte,$Dni){
-
-        $this->db->where('Dni =',"$Dni");
-        $this->db->where('IdParte =',"$IdParte");
-        $resultado =$this->db->delete('tecnicoorden ');
-
+    // ELIMINAR Material
+    public function mdeletematerial($IdMat)
+    {
+        return $this->db->table('material')->where('IdMat', $IdMat)->delete();
     }
 
-
-
-    //Trae Tecnico con el dni
-    public function nombreTecnico($Dni){
-        $this->db->where('Dni =',"$Dni");
-        $resultado =$this->db->get('tecnico');
-        $res=$resultado->row();
-        return $res;
+    // OBTENER Tecnicos por IdParte
+    public function mselectTecnicoIdParte($id)
+    {
+        $query = $this->db->query(
+            "SELECT t.IdParte, t.Dni, tc.Nombre
+             FROM tecnicoorden t
+             INNER JOIN tecnico tc ON t.Dni = tc.Dni
+             WHERE t.IdParte = ?",
+            [$id]
+        );
+        return $query->getResult();
     }
 
+    public function mselectTecnicoId($id)
+    {
+        $query = $this->db->query(
+            "SELECT tc.Nombre
+             FROM tecnicoorden t
+             INNER JOIN tecnico tc ON t.Dni = tc.Dni
+             WHERE tc.Activo = 1 AND t.IdParte = ?",
+            [$id]
+        );
+        return $query->getResult();
+    }
 
-    public  function suma_horas($hora1,$hora2){
- 
-        $hora1=explode(":",$hora1);
-        $hora2=explode(":",$hora2);
-        $temp=0;
-     
-        //sumo segundos 
-        $segundos=(int)$hora1[2]+(int)$hora2[2];
-        while($segundos>=60){
-            $segundos=$segundos-60;
-            $temp++;
-        }
-     
-        //sumo minutos 
-        $minutos=(int)$hora1[1]+(int)$hora2[1]+$temp;
-        $temp=0;
-        while($minutos>=60){
-            $minutos=$minutos-60;
-            $temp++;
-        }
-     
-        //sumo horas 
-        $horas=(int)$hora1[0]+(int)$hora2[0]+$temp;
-     
-        if($horas<10)
-            $horas= '0'.$horas;
-     
-        if($minutos<10)
-            $minutos= '0'.$minutos;
-     
-        if($segundos<10)
-            $segundos= '0'.$segundos;
-     
-        $sum_hrs = $horas.':'.$minutos.':'.$segundos;
-     
-        return ($sum_hrs);
-     
-        }
-    //funciones de horas// Separamos el tiempo en un array para pasarlo a segundos
-    public function explode_tiempo($tiempo) {
-        //date("Y-m-d",strtotime($tiempo));
-        //var_dump("entro al explode");
-        //var_dump($tiempo);
+    // MODIFICAR Material
+    public function mupdatematerial($id, $data)
+    {
+        return $this->db->table('material')->where('IdMat', $id)->update($data);
+    }
+
+    // CARGAR Material
+    public function cargarMat($data)
+    {
+        $this->db->table('material')->insert($data);
+        $IdMat = $this->db->insertID();
+
+        return sprintf(
+            '<tr>
+                <td>%d</td>
+                <td>%s</td>
+                <td>%d</td>
+                <td>%s</td>
+                <td>
+                    <div class="btn-group">
+                        <a title="Modificar" href="@%d" class="btn btn-info">
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                        <a title="Eliminar" href="_%d" class="btn btn-danger btn-remove">
+                            <span class="fa fa-remove"></span>
+                        </a>
+                    </div>
+                </td>
+            </tr>',
+            $IdMat, $data['Descripcion'], $data['Cantidad'], $data['Precio'], $IdMat, $IdMat
+        );
+    }
+
+    // FUNCIONES DE HORAS
+    public function suma_horas($hora1, $hora2)
+    {
+        $hora1 = explode(':', $hora1);
+        $hora2 = explode(':', $hora2);
+        $segundos = (int)$hora1[2] + (int)$hora2[2];
+        $minutos = (int)$hora1[1] + (int)$hora2[1] + intdiv($segundos, 60);
+        $horas = (int)$hora1[0] + (int)$hora2[0] + intdiv($minutos, 60);
+
+        return sprintf('%02d:%02d:%02d', $horas % 24, $minutos % 60, $segundos % 60);
+    }
+
+    public function explode_tiempo($tiempo)
+    {
         $arr_tiempo = explode(':', $tiempo);
-    
-       
-        $segundos = $arr_tiempo[0] * 3600 + $arr_tiempo[1] * 60 + $arr_tiempo[2];
-        return $segundos;
+        return $arr_tiempo[0] * 3600 + $arr_tiempo[1] * 60 + $arr_tiempo[2];
     }
 
-    // Transformar los segundos en hora formato HH:mm:ss
-    public function segundos_hhmm($seg) {
-        //var_dump($seg."lo q se me cante");
+    public function segundos_hhmm($seg)
+    {
         $horas = floor($seg / 3600);
         $minutos = floor($seg / 60 % 60);
-        $segundos = floor($seg % 60);
+        $segundos = $seg % 60;
 
         return sprintf('%02d:%02d:%02d', $horas, $minutos, $segundos);
     }
-
-
-    /*//INSERTAR TecnicoParteOrden
-    public function cargarTecnicoParteOrden($data){
-      return $this->db->insert('tecnicoparteorden',$data);
-    }
-    //Eliminar Tecnico tala tecnicoparteorden
-    public function mdeletetecnicoParteOrden($Dni){
-        $this->db->where('Dni =',"$Dni");
-        $resultado =$this->db->delete('tecnicoparteorden ');
-
-    }
-
-    //Trae Tecnico asociado a ORDEN al momento de crear momentaneamente
-    public function tecnico_parte(){
-        $resultado =$this->db->get('tecnicoparteorden');
-        return $resultado->result();
-    }*/
-
-
-
-
-
 }
-?>

@@ -31,7 +31,8 @@ class Croles extends BaseController
         $idrol = $this->session->get("idRol");
         $data = [
             'rolesindex' => $this->mroles->mselectrolessolo(),
-            'roles' => $this->mroles->obtener($idrol)
+            'roles' => $this->mroles->obtener($idrol),
+            'session' => $this->session
         ];
         
         echo view('layouts/header');
