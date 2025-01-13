@@ -118,14 +118,16 @@ class Cremitos extends BaseController
         }
     }
 
-    public function cedit($id)
+   /* public function cedit($id)
     {
+        $selectItems = new SelectItems();
         $idrol = $this->session->get('idRol');
         $data = [
             'remitoedit' => $this->mremito->midupdateremito($id),
             'roles' => $this->mroles->obtener($idrol),
             'cliente_select' => $this->mremito->cliente_listar_select2(),
-            'model' => $this->mremito->obtener($data['remitoedit']->IdCliente),
+            'model' => $this->mremito->obtener($remitoedit->IdCliente),
+            'select_items' => $selectItems,
             'session' => $this->session
         ];
 
@@ -135,7 +137,38 @@ class Cremitos extends BaseController
         echo view('layouts/aside', $data);
         echo view('admin/remito/vedit', $data);
         echo view('layouts/footer');
-    }
+    }*/
+    public function cedit($id)
+{
+    // Instanciar objetos necesarios
+    $selectItems = new SelectItems();
+    $idrol = $this->session->get('idRol');
+    
+    // Obtener los datos necesarios
+    $remitoedit = $this->mremito->midupdateremito($id);
+    $roles = $this->mroles->obtener($idrol);
+    $cliente_select = $this->mremito->cliente_listar_select2();
+    $model = $this->mremito->obtener($remitoedit->IdCliente); // Asegúrate de que accedes correctamente a IdCliente
+    $producto = $this->mremito->obtenerProducto($remitoedit->IdRemito);
+    
+    // Definir los datos que se pasarán a la vista
+    $data = [
+        'remitoedit' => $remitoedit,
+        'roles' => $roles,
+        'cliente_select' => $cliente_select,
+        'model' => $model,
+        'select_items' => $selectItems,
+        'session' => $this->session,
+        'producto' => $producto
+    ];
+    
+    // Cargar las vistas y pasar los datos
+    echo view('layouts/header');
+    echo view('layouts/aside', $data);
+    echo view('admin/remito/vedit', $data);
+    echo view('layouts/footer');
+}
+
 
     public function cupdate()
     {
@@ -218,21 +251,32 @@ class Cremitos extends BaseController
     }
 
     public function cprint($id)
-    {
-        $idrol = $this->session->get('idRol');
-        $data = [
-            'remito' => $this->mremito->midupdateremito($id),
-            'roles' => $this->mroles->obtener($idrol),
-            'cliente' => $this->mcliente->midupdatecliente($data['remito']->IdCliente),
-            'producto' => $this->mremito->obtenerProducto($id),
-            'session' => $this->session
-        ];
+{
+ 
+    $idrol = $this->session->get('idRol');
+    
+    // Obtener los datos necesarios
+    $remito = $this->mremito->midupdateremito($id);
+    $roles = $this->mroles->obtener($idrol);
+    $cliente = $this->mcliente->midupdatecliente($remito->IdCliente);
+    $producto = $this->mremito->obtenerProducto($id);
+    
+    // Definir los datos que se pasarán a la vista
+    $data = [
+        'remito' => $remito,
+        'roles' => $roles,
+        'cliente' => $cliente,
+        'producto' => $producto,
+        'session' => $this->session
+    ];
+    
+    // Cargar las vistas y pasar los datos
+    echo view('layouts/header');
+    echo view('layouts/aside', $data);
+    echo view('admin/remito/vprint', $data);
+    echo view('layouts/footer');
+}
 
-        echo view('layouts/header');
-        echo view('layouts/aside', $data);
-        echo view('admin/remito/vprint', $data);
-        echo view('layouts/footer');
-    }
 
     public function cError($idRemito)
     {

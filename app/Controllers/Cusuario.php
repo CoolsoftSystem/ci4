@@ -92,21 +92,31 @@ class Cusuario extends Controller
     }
 
     public function cedit($id)
-    {
-        $idrol = session()->get("idRol");
-        $data = [
-            'usuarioedit' => $this->musuario->midupdateusuario($id),
-            'roles' => $this->mroles->obtener($idrol),
-            'usuario_select' => $this->musuario->usuario_listar_select(),
-            'model' => $this->musuario->obtener($data['usuarioedit']->idRol),
-            'session' => $this->session
-        ];
+{
+    $selectItems = new SelectItems();
+    $idrol = $this->session->get('idRol');
+    
+    // Obtener los datos necesarios
+    $usuarioedit = $this->musuario->midupdateusuario($id);
+    $roles = $this->mroles->obtener($idrol);
+    $usuario_select = $this->musuario->usuario_listar_select();
+    $model = $this->musuario->obtener($usuarioedit->idRol); // Asegúrate de que accedes correctamente al idRol
+    // Definir los datos que se pasarán a la vista
+    $data = [
+        'usuarioedit' => $usuarioedit,
+        'roles' => $roles,
+        'usuario_select' => $usuario_select,
+        'model' => $model,
+        'select_items' => $selectItems,
+        'session' => $this->session
+    ];
 
-        return view('layouts/header')
-            . view('layouts/aside', $data)
-            . view('admin/usuario/vedit', $data)
-            . view('layouts/footer');
-    }
+    // Pasar los datos a las vistas
+    echo view('layouts/header');
+    echo view('layouts/aside', $data);
+    echo view('admin/usuario/vedit', $data);
+    echo view('layouts/footer');
+}
 
     public function cupdate()
     {

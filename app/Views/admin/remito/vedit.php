@@ -16,28 +16,39 @@
                             <p><?php echo $session->getFlashdata('error') ?> </p>
                         </div>
                         <?php endif ; ?>
-                        <form action="<?php echo base_url();?>mantenimiento/cremitos/cupdate" method="POST">
-                            <input type="hidden" value="<?php echo $remitoedit->IdRemito?>" name="txtIdRemito" id="txtIdRemito">
-                            <div class="col-md-5 form-group">
-                              <label for="cliente">Cliente&nbsp;&nbsp; (*)</label>
-                							<? $this->select_items->sin_buscador2($cliente_select,(!empty($model->IdCliente))
-                               ? $model->IdCliente : '',	'cliente','1',(!empty($consultar)) ? "disabled ":'required');?>
-                			<input id="cliente_hidden" name="cliente_hidden" type="hidden" >
-                			</div>
-                            <div class="col-sm-3 form-group">
-                                <label for="fecha">Fecha de Recepción</label>
-                                <input type="text" id="txtfecha" name="txtfecha"  min="2020-01-01" max="2100-12-31" value="<?php echo !empty(form_error('txtfecha'))? set_value('txtfecha') :  date("d-m-Y", strtotime("$remitoedit->fecha"));?>" class= "form-control"   >
-                            </div>
-                            <div class="col-sm-12 form-group">
-                                <label for="observaciones">OBSERVACIONES</label>
-                                <input type="text" id="txtobservaciones" name="txtobservaciones" maxlength="200" value="<?php echo !empty(form_error('txtobservaciones'))? set_value('txtobservaciones') : $remitoedit->observaciones ?>" class= "form-control"  >
-                            </div>
-                        
-                            <div class="col-sm-6 form-group">
-                                <a class="btn btn-info" href="<?php echo base_url();?>mantenimiento/cremitos">Volver</a>
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                            </div>
-                        </form>
+                        <form action="<?= base_url('mantenimiento/cremitos/cupdate') ?>" method="POST">
+    <!-- Campo oculto para el ID del remito -->
+    <input type="hidden" name="txtIdRemito" value="<?= $remitoedit->IdRemito ?>">
+
+    <!-- Campo Cliente -->
+    <div class="form-group col-md-5">
+        <label for="cliente">Cliente&nbsp;&nbsp; (*)</label>
+        <?php $select_items->sin_buscador2($cliente_select, $remitoedit->IdCliente, 'cliente', '1', !empty($consultar) ? 'disabled' : 'required'); ?>
+        <input id="cliente_hidden" name="cliente_hidden" type="hidden">
+    </div>
+
+    <!-- Campo Fecha de Recepción -->
+    <div class="form-group col-sm-3">
+        <label for="txtfecha">Fecha de Recepción</label>
+        <input type="text" id="txtfecha" name="txtfecha" class="form-control"
+               value="<?= date('d-m-Y', strtotime($remitoedit->fecha)) ?>"
+               min="2020-01-01" max="2100-12-31">
+    </div>
+
+    <!-- Campo Observaciones -->
+    <div class="form-group col-sm-12">
+        <label for="txtobservaciones">Observaciones</label>
+        <input type="text" id="txtobservaciones" name="txtobservaciones" maxlength="200"
+               value="<?= $remitoedit->observaciones ?>" class="form-control">
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group col-sm-6">
+        <a class="btn btn-info" href="<?= base_url('mantenimiento/cremitos') ?>">Volver</a>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+</form>
+
                     </div>
                     <div class="col-md-12">
                         <div class="row">

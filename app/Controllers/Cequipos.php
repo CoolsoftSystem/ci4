@@ -106,20 +106,32 @@ class Cequipos extends BaseController
 
     public function cedit($id)
     {
+        $selectItems = new SelectItems();
         $idrol = $this->session->get('idRol');
+        
+        // Obtener los datos necesarios
+        $equiposedit = $this->mequipos->midupdateequipos($id);
+        $roles = $this->mroles->obtener($idrol);
+        $cliente_select = $this->mequipos->cliente_listar_select2();
+        $model = $this->mequipos->obtener($equiposedit->id_cliente); // Asegúrate de que accedes correctamente a IdCliente
+        // Definir los datos que se pasarán a la vista
         $data = [
-            'equiposedit' => $this->mequipos->midupdateequipos($id),
-            'roles' => $this->mroles->obtener($idrol),
-            'cliente_select' => $this->mequipos->cliente_listar_select2(),
-            'model' => $this->mequipos->obtener($data['equiposedit']->id_cliente),
+            'equiposedit' => $equiposedit,
+            'roles' => $roles,
+            'cliente_select' => $cliente_select,
+            'model' => $model,
+            'select_items' => $selectItems,
             'session' => $this->session
         ];
-
+        
+        // Pasar los datos a las vistas
         echo view('layouts/header');
         echo view('layouts/aside', $data);
         echo view('admin/recepcion_equipos/vedit', $data);
         echo view('layouts/footer');
     }
+    
+    
 
     public function cupdate()
     {
@@ -156,7 +168,7 @@ class Cequipos extends BaseController
         }
     }
 
-    public function print($id)
+    /*public function print($id)
     {
         $idrol = $this->session->get('idRol');
         $data = [
@@ -170,7 +182,31 @@ class Cequipos extends BaseController
         echo view('layouts/aside', $data);
         echo view('admin/recepcion_equipos/vprint', $data);
         echo view('layouts/footer');
-    }
+    }*/
+    public function print($id)
+{
+    $idrol = $this->session->get('idRol');
+    
+    // Obtener los datos necesarios
+    $equiposindex = $this->mequipos->midupdateequipos($id);
+    $roles = $this->mroles->obtener($idrol);
+    $model = $this->mequipos->obtener($equiposindex->id_cliente);
+    
+    // Definir los datos que se pasarán a la vista
+    $data = [
+        'equiposindex' => $equiposindex,
+        'roles' => $roles,
+        'model' => $model,
+        'session' => $this->session
+    ];
+    
+    // Cargar las vistas y pasar los datos
+    echo view('layouts/header');
+    echo view('layouts/aside', $data);
+    echo view('admin/recepcion_equipos/vprint', $data);
+    echo view('layouts/footer');
+}
+
 
     public function cdelete($id)
     {

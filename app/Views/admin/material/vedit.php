@@ -16,27 +16,37 @@
                             <p><?php echo $session->getFlashdata('error') ?> </p>
                         </div>
                         <?php endif ; ?>
-                        <form action="<?php echo base_url();?>mantenimiento/cparteorden/cupdateMat" method="POST">
-                            <input type="hidden" value="<?php echo $materialedit->IdMat ?>" name="txtid" id="txtid">
-                            <div class="col-sm-6 form-group">
-                                <label for="descripcion">Descripción</label>
-                                <input type="text" id="txtdescripcion" name="txtdescripcion" maxlength="150" value="<?php echo !empty(form_error('txtdescripcion'))? set_value('txtdescripcion') : $materialedit->Descripcion ?>" class= "form-control"  >
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label for="cantidad">Cantidad</label>
-                                <input type="text" id="txtcantidad" name="txtcantidad"  value="<?php echo !empty(form_error('txtcantidad'))? set_value('txtcantidad') : $materialedit->Cantidad ?>" class= "form-control"  >
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label for="precio">Precio</label>
-                                <input type="number" id="txtprecio" name="txtprecio" step=".01" value="<?php echo !empty(form_error('txtprecio'))? set_value('txtprecio') : $materialedit->Precio ?>" class= "form-control"  >
-                            </div>
+                        <form action="<?= base_url('mantenimiento/cparteorden/cupdateMat') ?>" method="POST">
+    <input type="hidden" name="txtid" value="<?= $materialedit->IdMat ?>">
 
-                            <div class="col-sm-12 form-group">
-                            <a class="btn btn-success" href="<?php echo base_url();?>mantenimiento/cparteorden/cedit/<?php echo $materialedit->IdParte; ?>">Volver</a>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                            </div>
-                        </div>
-                    </form>
+    <!-- Campo Descripción -->
+    <div class="form-group">
+        <label for="txtdescripcion">Descripción</label>
+        <input type="text" id="txtdescripcion" name="txtdescripcion" class="form-control" 
+               value="<?= $materialedit->Descripcion ?>" maxlength="150">
+    </div>
+
+    <!-- Campo Cantidad -->
+    <div class="form-group">
+        <label for="txtcantidad">Cantidad</label>
+        <input type="text" id="txtcantidad" name="txtcantidad" class="form-control" 
+               value="<?= $materialedit->Cantidad ?>">
+    </div>
+
+    <!-- Campo Precio -->
+    <div class="form-group">
+        <label for="txtprecio">Precio</label>
+        <input type="number" id="txtprecio" name="txtprecio" class="form-control" 
+               value="<?= $materialedit->Precio ?>" step="0.01">
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <a class="btn btn-success" href="<?= base_url('mantenimiento/cparteorden/cedit/' . $materialedit->IdParte) ?>">Volver</a>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+</form>
+
                </div>
             </div>
         </div>

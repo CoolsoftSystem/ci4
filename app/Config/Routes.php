@@ -35,3 +35,23 @@ $routes->get('mantenimiento/cremitos/cadd', 'Cremitos::cadd');
 $routes->get('mantenimiento/croles/cadd', 'Croles::cadd');
 $routes->get('mantenimiento/ctecnico/cadd', 'Ctecnico::cadd');
 $routes->get('mantenimiento/cusuario/cadd', 'Cusuario::cadd');
+
+//GET de todos los edit
+$routes->get('mantenimiento/corden/cedit/(:num)', 'Corden::cedit/$1');
+$routes->get('mantenimiento/ccliente/cedit/(:num)', 'Ccliente::cedit/$1');
+$routes->get('mantenimiento/cequipos/cedit/(:num)', 'Cequipos::cedit/$1');
+$routes->get('mantenimiento/cproveedores/cedit/(:num)', 'Cproveedores::cedit/$1');
+$routes->get('mantenimiento/cremitos/cedit/(:num)', 'Cremitos::cedit/$1');//no funciona
+$routes->get('mantenimiento/croles/cedit/(:num)', 'Croles::cedit/$1');
+$routes->get('mantenimiento/ctecnico/cedit/(:num)', 'Ctecnico::cedit/$1');
+$routes->get('mantenimiento/cusuario/cedit/(:num)', 'Cusuario::cedit/$1');
+
+//GET de los print
+$routes->get('mantenimiento/cequipos/print/(:num)', 'Cequipos::print/$1'); 
+$routes->get('mantenimiento/cremitos/cprint/(:num)', 'Cremitos::cprint/$1');
+
+//Post de todos los adds
+
+//Post de todos los delete
+
+//Post de todos los edit
