@@ -11,9 +11,9 @@
                <hr>
                <div class="row">
                    <div class="col-md-12">
-                       <?php if($session->getFlashdata('error')):?>
+                       <?php if(session()->getFlashdata('error')):?>
                         <div class="alert alert-danger">
-                            <p><?php echo $session->getFlashdata('error') ?> </p>
+                            <p><? session()->getFlashdata('error') ?> </p>
                         </div>
                         <?php endif ; ?>
                         <form action="<?= base_url('mantenimiento/ctecnico/cupdate') ?>" method="POST">

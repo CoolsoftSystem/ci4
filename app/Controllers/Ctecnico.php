@@ -69,7 +69,7 @@ class Ctecnico extends BaseController
         // Verificar si el técnico ya existe
         $res = $this->mtecnico->getTecnicoById($dni);
 
-        if (!$res) {
+        if ($res == null) {
             $data = [
                 'Nombre' => $nombre,
                 'Dni' => $dni,
@@ -78,14 +78,14 @@ class Ctecnico extends BaseController
             ];
 
             if ($this->mtecnico->insertTecnico($data)) {
-                $this->session->setFlashdata('correcto', 'Se guardó correctamente');
+                session()->setFlashdata('correcto', 'Se guardó correctamente');
                 return redirect()->to(base_url('mantenimiento/ctecnico'));
             } else {
-                $this->session->setFlashdata('error', 'No se guardó el registro');
+                session()->setFlashdata('error', 'No se guardó el registro');
                 return redirect()->to(base_url('mantenimiento/ctecnico/cadd'));
             }
         } else {
-            $this->session->setFlashdata('error', 'Este DNI ya está registrado');
+            session()->setFlashdata('error', 'Este DNI ya está registrado');
             return redirect()->to(base_url('mantenimiento/ctecnico/cadd'));
         }
     }
@@ -123,14 +123,14 @@ class Ctecnico extends BaseController
             ];
 
             if ($this->mtecnico->updateTecnico($id, $data)) {
-                $this->session->setFlashdata('correcto', 'Se actualizó correctamente');
+                session()->setFlashdata('correcto', 'Se actualizó correctamente');
                 return redirect()->to(base_url('mantenimiento/ctecnico'));
             } else {
-                $this->session->setFlashdata('error', 'No se pudo actualizar el técnico');
+                session()->setFlashdata('error', 'No se pudo actualizar el técnico');
                 return redirect()->to(base_url('mantenimiento/ctecnico/cedit/' . $id));
             }
         } else {
-            $this->session->setFlashdata('error', 'Este DNI ya está registrado');
+            session()->setFlashdata('error', 'Este DNI ya está registrado');
             return redirect()->to(base_url('mantenimiento/ctecnico/cadd'));
         }
     }
@@ -140,9 +140,9 @@ class Ctecnico extends BaseController
         $data = ['Activo' => '0'];
 
         if ($this->mtecnico->updateTecnico($id, $data)) {
-            $this->session->setFlashdata('correcto', 'El técnico fue desactivado');
+            session()->setFlashdata('correcto', 'El técnico fue desactivado');
         } else {
-            $this->session->setFlashdata('error', 'No se pudo desactivar el técnico');
+            session()->setFlashdata('error', 'No se pudo desactivar el técnico');
         }
 
         return redirect()->to(base_url('mantenimiento/ctecnico'));

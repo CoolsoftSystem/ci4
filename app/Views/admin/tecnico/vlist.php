@@ -10,12 +10,12 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="<?php echo base_url(); ?>mantenimiento/ctecnico/cadd" class="btn btn-flat" id="botonVioleta"><span class="fa fa-plus"></span> Agregar Técnico</a>
+                        <a href="<?= base_url('mantenimiento/ctecnico/cadd'); ?>" class="btn btn-flat" id="botonVioleta"><span class="fa fa-plus"></span> Agregar Técnico</a>
                     </div>
                 </div>
-                <?php if ($session->getFlashdata('correcto')) : ?>
+                <?php if (session()->getFlashdata('correcto')) : ?>
                     <div class="alert alert-success">
-                        <p><?php echo $session->getFlashdata('correcto') ?></p>
+                        <p><?= session()->getFlashdata('correcto') ?></p>
                     </div>
                 <?php endif; ?>
                 <hr>
