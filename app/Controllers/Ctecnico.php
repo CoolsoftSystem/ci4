@@ -141,10 +141,10 @@ class Ctecnico extends BaseController
 
         if ($this->mtecnico->updateTecnico($id, $data)) {
             session()->setFlashdata('correcto', 'El técnico fue desactivado');
+            return $this->response->setJSON(['status' => 'success', 'redirect' => base_url('mantenimiento/ctecnico')]);
         } else {
             session()->setFlashdata('error', 'No se pudo desactivar el técnico');
+            return $this->response->setJSON(['status' => 'error']);
         }
-
-        return redirect()->to(base_url('mantenimiento/ctecnico'));
     }
 }

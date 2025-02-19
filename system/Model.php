@@ -106,6 +106,8 @@ class Model extends BaseModel
      */
     protected $primaryKey = 'id';
 
+    protected $protectFields = false;
+
     /**
      * Whether primary key uses auto increment.
      *

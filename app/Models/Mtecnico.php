@@ -8,21 +8,22 @@ class Mtecnico extends Model
 {
     protected $table = 'tecnico'; // Nombre de la tabla
     protected $primaryKey = 'Dni'; // Clave primaria
-    protected $allowedFields = ['Dni', 'Nombre', 'Activo']; // Campos permitidos para inserción/actualización
+    protected $allowedFields = ['Dni', 'Nombre', 'Activo', 'Telefono']; // Campos permitidos para inserción/actualización
     protected $useTimestamps = false; // Cambiar si usas campos 'created_at' y 'updated_at'
 
     // Mostrar técnico activo
     public function selectTecnicosActivos()
     {
         return $this->where('Activo', '1')
-                    ->orderBy('Dni', 'asc')
-                    ->findAll();
+            ->orderBy('Dni', 'asc')
+            ->findAll();
     }
 
     // Insertar técnico
     public function insertTecnico(array $data)
     {
-        return $this->insert($data);
+        $this->insert($data);
+        return $this->db->affectedRows() > 0; // Verifica si hubo cambios en la BD
     }
 
     // Obtener datos de un técnico por DNI

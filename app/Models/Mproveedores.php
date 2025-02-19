@@ -8,7 +8,12 @@ class Mproveedores extends Model
 {
     protected $table = 'proveedores'; // Tabla asociada
     protected $primaryKey = 'IdProveedores'; // Llave primaria
-    protected $allowedFields = ['Nombre', 'Direccion', 'Telefono', 'Anulado']; // Campos permitidos para insertar/actualizar
+    protected $allowedFields = 
+        [   'Nombre', 
+            'Direccion', 
+            'Telefono', 
+            'Anulado'
+        ]; // Campos permitidos para insertar/actualizar
 
     /**
      * Obtener todos los proveedores activos.
@@ -18,8 +23,8 @@ class Mproveedores extends Model
     public function selectProveedoresActivos()
     {
         return $this->where('Anulado', '0')
-                    ->orderBy('IdProveedores', 'asc')
-                    ->findAll();
+            ->orderBy('IdProveedores', 'asc')
+            ->findAll();
     }
 
     /**

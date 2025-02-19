@@ -461,7 +461,7 @@ $(".deleteTecnico").on("click", function(e){
                     type: "POST",
                     success:function(res){
                       //alert(res);
-                      window.location.href=base_url+res;
+                      window.location.href = res.redirect;
                     }
                   });
                 }else{

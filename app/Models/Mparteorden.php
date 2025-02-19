@@ -9,15 +9,19 @@ class Mparteorden extends Model
     protected $table = 'parteorden';
     protected $primaryKey = 'IdParte';
     protected $allowedFields = [
-        'IdOrden', 'Descripcion', 'Cantidad', 'Precio', 'Anulado'
+        'IdOrden',
+        'Descripcion',
+        'Cantidad',
+        'Precio',
+        'Anulado'
     ];
 
     // MOSTRAR parteorden
     public function mselectparteorden($id)
     {
         return $this->where('Anulado', '0')
-                    ->where('IdOrden', $id)
-                    ->findAll();
+            ->where('IdOrden', $id)
+            ->findAll();
     }
 
     // INSERTAR parteorden
@@ -49,9 +53,9 @@ class Mparteorden extends Model
     public function mupdateparteorden($idparte, $idorden, $data)
     {
         return $this->where('IdParte', $idparte)
-                    ->where('IdOrden', $idorden)
-                    ->set($data)
-                    ->update();
+            ->where('IdOrden', $idorden)
+            ->set($data)
+            ->update();
     }
 
     // INFORMACION parteorden
@@ -88,10 +92,10 @@ class Mparteorden extends Model
     public function obtenerMaterial($idOrden, $idParte)
     {
         return $this->db->table('material')
-                        ->where('IdOrden', $idOrden)
-                        ->where('IdParte', $idParte)
-                        ->get()
-                        ->getResult();
+            ->where('IdOrden', $idOrden)
+            ->where('IdParte', $idParte)
+            ->get()
+            ->getResult();
     }
 
     public function obtenerMaterialconIdMat($IdMat)
@@ -159,7 +163,12 @@ class Mparteorden extends Model
                     </div>
                 </td>
             </tr>',
-            $IdMat, $data['Descripcion'], $data['Cantidad'], $data['Precio'], $IdMat, $IdMat
+            $IdMat,
+            $data['Descripcion'],
+            $data['Cantidad'],
+            $data['Precio'],
+            $IdMat,
+            $IdMat
         );
     }
 
@@ -168,9 +177,9 @@ class Mparteorden extends Model
     {
         $hora1 = explode(':', $hora1);
         $hora2 = explode(':', $hora2);
-        $segundos = (int)$hora1[2] + (int)$hora2[2];
-        $minutos = (int)$hora1[1] + (int)$hora2[1] + intdiv($segundos, 60);
-        $horas = (int)$hora1[0] + (int)$hora2[0] + intdiv($minutos, 60);
+        $segundos = (int) $hora1[2] + (int) $hora2[2];
+        $minutos = (int) $hora1[1] + (int) $hora2[1] + intdiv($segundos, 60);
+        $horas = (int) $hora1[0] + (int) $hora2[0] + intdiv($minutos, 60);
 
         return sprintf('%02d:%02d:%02d', $horas % 24, $minutos % 60, $segundos % 60);
     }

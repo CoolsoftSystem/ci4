@@ -127,64 +127,67 @@ class Ccliente extends BaseController
     }
 
     public function cupdate()
-{
-    // Recibir datos del formulario
-    $idcliente = $this->request->getPost('txtidcliente');
-    $nombre = $this->request->getPost('txtnombre');
-    $cuitold = $this->request->getPost('txtcuitold');
-    $cuit = $this->request->getPost('txtcuitnew');
-    $prov = $this->request->getPost('txtprovincia');
-    $domicilio = $this->request->getPost('txtdomicilio');
-    $iva = $this->request->getPost('txtiva');
-    $localidad = $this->request->getPost('txtlocalidad');
-    $mant = $this->request->getPost('txtmant');
-    $venta = $this->request->getPost('txtventas');
-    $comer = $this->request->getPost('txtcomercial');
-    $mmant = $this->request->getPost('txtmmant');
-    $mvta = $this->request->getPost('txtmvta');
-    $mcial = $this->request->getPost('txtmcial');
-    $nmant = $this->request->getPost('txtnmant');
-    $nvta = $this->request->getPost('txtnvta');
-    $ncial = $this->request->getPost('txtncial');
+    {
+        
+        // Recibir datos del formulario
+        $idcliente = $this->request->getPost('txtidcliente');
+        $nombre = $this->request->getPost('txtnombre');
+        $cuitold = $this->request->getPost('txtcuitold');
+        $cuit = $this->request->getPost('txtcuitnew');
+        $prov = $this->request->getPost('txtprovincia');
+        $domicilio = $this->request->getPost('txtdomicilio');
+        $iva = $this->request->getPost('txtiva');
+        $localidad = $this->request->getPost('txtlocalidad');
+        $mant = $this->request->getPost('txtmant');
+        $venta = $this->request->getPost('txtventas');
+        $comer = $this->request->getPost('txtcomercial');
+        $mmant = $this->request->getPost('txtmmant');
+        $mvta = $this->request->getPost('txtmvta');
+        $mcial = $this->request->getPost('txtmcial');
+        $nmant = $this->request->getPost('txtnmant');
+        $nvta = $this->request->getPost('txtnvta');
+        $ncial = $this->request->getPost('txtncial');
 
-    // Verificar si el cliente ya existe
-    $cli = $this->mcliente->obtenerclientedni($cuit);
+        log_message('debug', "Valor de localidad: " .$localidad);
 
-    if (($cli === null) || ($cuitold === $cuit)) {
-        // Datos a actualizar
-        $data = [
-            'Nombre' => $nombre,
-            'DniCuit' => $cuit,
-            'Provincia' => $prov,
-            'IVA' => $iva,
-            'Localidad' => $localidad,
-            'tel_mantenimiento' => $mant,
-            'tel_venta' => $venta,
-            'tel_comercial' => $comer,
-            'mail_mant' => $mmant,
-            'mail_vta' => $mvta,
-            'mail_comercial' => $mcial,
-            'nya_mant' => $nmant,
-            'nya_vta' => $nvta,
-            'nya_cial' => $ncial,
-            'Domicilio' => $domicilio
-        ];
+        // Verificar si el cliente ya existe
+        $cli = $this->mcliente->obtenerclientedni($cuit);
 
-        if ($this->mcliente->mupdatecliente($idcliente, $data)) {
-            // Mensaje de éxito
-            session()->setFlashdata('correcto', 'Se guardó correctamente');
-            return redirect()->to(base_url('mantenimiento/ccliente'));
+        if (($cli === null) || ($cuitold === $cuit)) {
+            // Datos a actualizar
+            $data = [
+                'Nombre' => $nombre,
+                'DniCuit' => $cuit,
+                'Provincia' => $prov,
+                'IVA' => $iva,
+                'Localidad' => $localidad,
+                'tel_mantenimiento' => $mant,
+                'tel_venta' => $venta,
+                'tel_comercial' => $comer,
+                'mail_mant' => $mmant,
+                'mail_vta' => $mvta,
+                'mail_comercial' => $mcial,
+                'nya_mant' => $nmant,
+                'nya_vta' => $nvta,
+                'nya_cial' => $ncial,
+                'Domicilio' => $domicilio
+            ];
+
+            if ($this->mcliente->mupdatecliente($idcliente, $data)) {
+                // Mensaje de éxito
+                session()->setFlashdata('correcto', 'Se guardó correctamente');
+                return redirect()->to(base_url('mantenimiento/ccliente'));
+            } else {
+                // Error al guardar
+                session()->setFlashdata('error', 'No se pudo actualizar el cliente');
+                return redirect()->back()->withInput(); // Devuelve los datos ingresados
+            }
         } else {
-            // Error al guardar
-            session()->setFlashdata('error', 'No se pudo actualizar el cliente');
+            // Error de duplicidad
+            session()->setFlashdata('error', 'Este Dni/Cuit ya está registrado');
             return redirect()->back()->withInput(); // Devuelve los datos ingresados
         }
-    } else {
-        // Error de duplicidad
-        session()->setFlashdata('error', 'Este Dni/Cuit ya está registrado');
-        return redirect()->back()->withInput(); // Devuelve los datos ingresados
     }
-}
 
 
     public function cdelete($id)

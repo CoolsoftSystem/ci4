@@ -9,7 +9,20 @@ class Mcliente extends Model
     protected $table = 'cliente';
     protected $primaryKey = 'IdCliente';
     protected $allowedFields = [
-        'DniCuit', 'Nombre', 'Domicilio', 'Provincia', 'tel_mantenimiento', 'tel_venta', 'tel_comercial', 'mail_mant', 'mail_vta', 'mail_comercial', 'nya_mant', 'nya_vta', 'nya_cial', 'Anulado'
+        'DniCuit',
+        'Nombre',
+        'Domicilio',
+        'Provincia',
+        'tel_mantenimiento',
+        'tel_venta',
+        'tel_comercial',
+        'mail_mant',
+        'mail_vta',
+        'mail_comercial',
+        'nya_mant',
+        'nya_vta',
+        'nya_cial',
+        'Anulado',
     ];
     protected $returnType = 'object'; // Puedes cambiar a 'array' si prefieres
 
@@ -17,8 +30,8 @@ class Mcliente extends Model
     public function mselectcliente()
     {
         return $this->where('Anulado', '0')
-                    ->orderBy('IdCliente', 'asc')
-                    ->findAll();
+            ->orderBy('IdCliente', 'asc')
+            ->findAll();
     }
 
     //INSERTAR Cliente

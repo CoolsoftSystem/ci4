@@ -9,8 +9,13 @@ class Morden extends Model
     protected $table = 'orden'; // Tabla principal
     protected $primaryKey = 'IdOrden'; // Clave primaria
     protected $allowedFields = [
-        'IdCliente', 'FechaRecepcion', 'TareaDesarrollar', 
-        'Precio', 'Completada', 'Eliminada', 'observaciones'
+        'IdCliente',
+        'FechaRecepcion',
+        'TareaDesarrollar',
+        'Precio',
+        'Completada',
+        'Eliminada',
+        'observaciones'
     ];
 
     // MOSTRAR órdenes activas
