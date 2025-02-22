@@ -6,12 +6,6 @@
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-
-             <li>
-                <a href="<?= base_url('cdashboard') ?>">
-                    <i class="fa fa-home"></i> <span>Inicio</span>
-                </a>
-            </li>
             
             <li class="treeview">
                 <a href="#">

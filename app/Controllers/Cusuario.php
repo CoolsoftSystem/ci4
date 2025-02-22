@@ -127,9 +127,9 @@ class Cusuario extends Controller
         $idRol = mb_strtoupper($this->request->getPost('usuario'));
         $contraseña = $this->request->getPost('txtContraseña');
 
-        $usu = $this->musuario->obtenerusuario($usuario);
+        $usu = $this->musuario->obtenerUsuario($nombre);
 
-        if (($usu == null) or ($txtnombreviejo == $usu)) {
+        if (($usu == null) or ($txtnombreviejo != $usu)) {
             $data = [
                 'nombre' => $nombre,
                 'email' => $email,
@@ -145,7 +145,7 @@ class Cusuario extends Controller
                 return redirect()->to(base_url('mantenimiento/cusuario/cedit/' . $idusuario));
             }
         } else {
-            session()->setFlashdata('error', "El Usuario '$usuario' ya esta registrado ");
+            session()->setFlashdata('error', "El Usuario '$nombre' ya esta registrado ");
             return redirect()->to(base_url('mantenimiento/cusuario/cedit/' . $idusuario));
         }
     }
