@@ -147,7 +147,6 @@ class Cremitos extends BaseController
     // Obtener los datos necesarios
     $remitoedit = $this->mremito->midupdateremito($id);
     $roles = $this->mroles->obtener($idrol);
-    $cliente_select = $this->mremito->cliente_listar_select2();
     $model = $this->mremito->obtener($remitoedit->IdCliente); // Asegúrate de que accedes correctamente a IdCliente
     $producto = $this->mremito->obtenerProducto($remitoedit->IdRemito);
     
@@ -155,7 +154,7 @@ class Cremitos extends BaseController
     $data = [
         'remitoedit' => $remitoedit,
         'roles' => $roles,
-        'cliente_select' => $cliente_select,
+        'cliente_select' => $this->mremito->cliente_listar_select2(),
         'model' => $model,
         'select_items' => $selectItems,
         'session' => $this->session,

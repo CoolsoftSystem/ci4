@@ -6,6 +6,15 @@ use CodeIgniter\Model;
 
 class Mremito extends Model
 {
+    protected $table = 'remitos'; // Tabla principal
+    protected $primaryKey = 'IdRemito'; // Clave primaria
+    protected $allowedFields = [
+        'fecha',
+        'IdCliente',
+        'observaciones',
+        'Anulado',
+    ];
+
     // Obtener remitos activos
     public function mselectremito()
     {
@@ -130,9 +139,31 @@ class Mremito extends Model
         return $query->getResult();
     }
 
+    public function cliente_listar_select2()
+    {
+        $query = $this->db->query("
+            SELECT 
+                DISTINCT c.IdCliente AS IdCliente, 
+                c.Nombre AS NOMBRE 
+            FROM 
+                cliente c 
+            WHERE 
+                c.Anulado = 0 
+            ORDER BY 
+                c.Nombre ASC
+        ");
+        return $query->getResult();
+    }
+
     // Obtener cliente por ID
     public function obtener($id)
     {
         return $this->db->table('cliente')->where('IdCliente', $id)->get()->getRow();
     }
+
+    //OBTENER DATOS Producto
+public function midupdateproducto($id){
+    
+    return  $this->db->table('producto')->where('IdProducto', $id)->get()->getRow();
+  }
 }

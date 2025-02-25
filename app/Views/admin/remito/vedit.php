@@ -22,10 +22,13 @@
 
     <!-- Campo Cliente -->
     <div class="form-group col-md-5">
-        <label for="cliente">Cliente&nbsp;&nbsp; (*)</label>
-        <?php $select_items->sin_buscador2($cliente_select, $remitoedit->IdCliente, 'cliente', '1', !empty($consultar) ? 'disabled' : 'required'); ?>
-        <input id="cliente_hidden" name="cliente_hidden" type="hidden">
-    </div>
+    <label for="cliente">Cliente&nbsp;&nbsp; (*)</label>
+    <?php 
+        echo $select_items->sin_buscador2($cliente_select, $remitoedit->IdCliente, 'cliente', '1', !empty($consultar) ? 'disabled' : 'required');
+    ?>
+    <input id="cliente_hidden" name="cliente_hidden" type="hidden">
+</div>
+
 
     <!-- Campo Fecha de Recepción -->
     <div class="form-group col-sm-3">
@@ -61,15 +64,15 @@
                                 
                                     <div class="col-sm-5 form-group">
                                         <label for="producto">Producto</label>
-                                        <input type="text" id="txtproducto" name="txtproducto" class="form-control"  value="<?php echo set_value('txtproducto') ?>" required>
+                                        <input type="text" id="txtproducto" name="txtproducto" class="form-control"  value="<?= isset($producto->producto) ? $producto->producto : '' ?>" required>
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label for="cantidad">Cantidad</label>
-                                        <input type="number" id="txtcantidad" name="txtcantidad" class="form-control" value="<?php echo set_value('txtcantidad') ?>" >
+                                        <input type="number" id="txtcantidad" name="txtcantidad" class="form-control" value="<?= isset($producto->cantidad) ? $producto->cantidad : '' ?>" >
                                     </div>
                                     <div class="col-sm-3 form-group">
                                         <label for="numSerie">Numero de Serie</label>
-                                        <input type="text" id="txtnumSerie" name="txtnumSerie" class="form-control" value="<?php echo set_value('txtnumSerie') ?>" >
+                                        <input type="text" id="txtnumSerie" name="txtnumSerie" class="form-control" value="<?= isset($producto->numSerie) ? $producto->numSerie : '' ?>" >
                                     </div>
                                     <div class="col-sm-1">
                                         <br>

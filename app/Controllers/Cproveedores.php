@@ -33,7 +33,7 @@ class Cproveedores extends BaseController
     {
         $idRol = $this->session->get('idRol');
         $data = [
-            'proveedores' => $this->mproveedores->selectProveedoresActivos(),
+            'proveedoresindex' => $this->mproveedores->selectProveedoresActivos(),
             'roles' => $this->mroles->obtener($idRol),
             'session' => $this->session
         ];
@@ -64,7 +64,7 @@ class Cproveedores extends BaseController
     /**
      * Inserta un nuevo proveedor en la base de datos.
      */
-    public function insert()
+    public function cinsert()
     {
         $data = [
             'Nombre' => $this->request->getPost('txtnombre'),
@@ -79,21 +79,21 @@ class Cproveedores extends BaseController
 
         if ($this->mproveedores->insertProveedor($data)) {
             $this->session->setFlashdata('correcto', 'Proveedor guardado correctamente.');
-            return redirect()->to(base_url('mantenimiento/proveedores'));
+            return redirect()->to(base_url('mantenimiento/cproveedores'));
         } else {
             $this->session->setFlashdata('error', 'No se pudo guardar el proveedor.');
-            return redirect()->to(base_url('mantenimiento/proveedores/add'));
+            return redirect()->to(base_url('mantenimiento/cproveedores/cadd'));
         }
     }
 
     /**
      * Formulario para editar un proveedor.
      */
-    public function edit($id)
+    public function cedit($id)
     {
         $idRol = $this->session->get('idRol');
         $data = [
-            'proveedor' => $this->mproveedores->selectInfoProveedor($id),
+            'proveedoresedit' => $this->mproveedores->selectInfoProveedor($id),
             'roles' => $this->mroles->obtener($idRol),
             'session' => $this->session
         ];
@@ -107,7 +107,7 @@ class Cproveedores extends BaseController
     /**
      * Actualiza la información de un proveedor.
      */
-    public function update()
+    public function cupdate()
     {
         $idProveedor = $this->request->getPost('txtIdProveedores');
         $data = [
@@ -122,17 +122,17 @@ class Cproveedores extends BaseController
 
         if ($this->mproveedores->updateProveedor($idProveedor, $data)) {
             $this->session->setFlashdata('correcto', 'Proveedor actualizado correctamente.');
-            return redirect()->to(base_url('mantenimiento/proveedores'));
+            return redirect()->to(base_url('mantenimiento/cproveedores'));
         } else {
             $this->session->setFlashdata('error', 'No se pudo actualizar el proveedor.');
-            return redirect()->to(base_url("mantenimiento/proveedores/edit/{$idProveedor}"));
+            return redirect()->to(base_url("mantenimiento/cproveedores/cedit/{$idProveedor}"));
         }
     }
 
     /**
      * Marca un proveedor como anulado.
      */
-    public function delete($id)
+    public function cdelete($id)
     {
         $data = ['Anulado' => '1'];
 
@@ -142,6 +142,6 @@ class Cproveedores extends BaseController
             $this->session->setFlashdata('error', 'No se pudo eliminar el proveedor.');
         }
 
-        return redirect()->to(base_url('mantenimiento/proveedores'));
+        return redirect()->to(base_url('mantenimiento/cproveedores'));
     }
 }

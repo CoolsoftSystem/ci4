@@ -20,7 +20,7 @@ class Mroles extends Model
     // Seleccionar roles junto con usuarios
     public function mselectroles()
     {
-        return $this->select('t.nombre_tipo, t.idRol, u.idUsuario, u.nombre, u.email')
+        return $this->select('nombre_tipo, idRol, u.idUsuario, u.nombre, u.email')
                     ->join('usuarios u', 't.idRol = u.idRol')
                     ->where('u.anulado', 0)
                     ->findAll();
@@ -68,8 +68,8 @@ class Mroles extends Model
     public function roles_listar_select2()
     {
         return $this->distinct()
-                    ->select('u.idUsuario, t.nombre_tipo')
-                    ->join('usuarios u', 't.idRol = u.idRol')
+                    ->select('u.idUsuario, tipousuario.nombre_tipo')
+                    ->join('usuarios u', 'tipousuario.idRol = u.idRol')
                     ->where('u.anulado', 0)
                     ->findAll();
     }

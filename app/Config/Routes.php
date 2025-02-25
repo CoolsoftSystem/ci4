@@ -36,14 +36,15 @@ $routes->get('mantenimiento/croles/cadd', 'Croles::cadd');
 $routes->get('mantenimiento/ctecnico/cadd', 'Ctecnico::cadd');
 $routes->get('mantenimiento/cusuario/cadd', 'Cusuario::cadd');
 
-//DE ACA PARA ABAJO CONTROLAR, LO QUE ESTA ARRIBA FUNCIONA
+
 
 //GET de todos los edit
 $routes->get('mantenimiento/corden/cedit/(:num)', 'Corden::cedit/$1');
 $routes->get('mantenimiento/ccliente/cedit/(:num)', 'Ccliente::cedit/$1');
 $routes->get('mantenimiento/cequipos/cedit/(:num)', 'Cequipos::cedit/$1');
 $routes->get('mantenimiento/cproveedores/cedit/(:num)', 'Cproveedores::cedit/$1');
-$routes->get('mantenimiento/cremitos/cedit/(:num)', 'Cremitos::cedit/$1');//NO FUNCIONA
+$routes->get('mantenimiento/cremitos/cedit/(:num)', 'Cremitos::cedit/$1');
+$routes->get('mantenimiento/cremitos/ceditProd/(:num)', 'Cremitos::ceditProd/$1');
 $routes->get('mantenimiento/croles/cedit/(:num)', 'Croles::cedit/$1');
 $routes->get('mantenimiento/ctecnico/cedit/(:num)', 'Ctecnico::cedit/$1');
 $routes->get('mantenimiento/cusuario/cedit/(:num)', 'Cusuario::cedit/$1');
@@ -78,6 +79,7 @@ $routes->post('mantenimiento/ccliente/cupdate', 'Ccliente::cupdate');
 $routes->post('mantenimiento/cequipos/cupdate', 'Cequipos::cupdate');
 $routes->post('mantenimiento/cproveedores/cupdate', 'Cproveedores::cupdate');
 $routes->post('mantenimiento/cremitos/cupdate', 'Cremitos::cupdate');
+$routes->post('mantenimiento/cremitos/cupdateProd', 'Cremitos::cupdateProd');
 $routes->post('mantenimiento/croles/cupdate', 'Croles::cupdate');
 $routes->post('mantenimiento/ctecnico/cupdate', 'Ctecnico::cupdate');
 $routes->post('mantenimiento/cusuario/cupdate', 'Cusuario::cupdate');
