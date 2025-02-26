@@ -11,9 +11,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <?php if (session()->getFlashdata('error')):?>
+                            <?php if ($session->getFlashdata('error')):?>
                                 <div class="alert alert-danger">
-                                    <p><?= session()->getFlashdata('error') ?></p>
+                                    <p><?php echo $session->getFlashdata('error') ?></p>
                                 </div>
                             <?php endif;  ?>
                             <form action="<?= base_url(); ?>mantenimiento/cparteorden/cinsert" method="POST">

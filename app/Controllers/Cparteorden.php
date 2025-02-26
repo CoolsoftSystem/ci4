@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SelectItems;
+
+use DateTime; 
+
 use App\Models\Mparteorden;
 use App\Models\Mroles;
 use App\Models\Morden;
@@ -62,30 +66,62 @@ class Cparteorden extends BaseController {
         }
     }
 
-    public function cedit($id) {
-        $idrol = $this->session->get("idRol");
-        $var = substr($id, 0, 1);
-        $id = str_replace(['@', '_'], '', $id);
+    public function cedit($id)
+{
+    $selectItems = new SelectItems();
+    $idrol = $this->session->get('idRol');
+    $var = substr($id, 0, 1);
+    $id = str_replace(['@', '_'], '', $id);
 
-        if ($var == '@') {
-            $data = [
-                'materialedit' => $this->mparteorden->midupdatematerial($id),
-                'roles' => $this->mroles->obtener($idrol),
-                'session' => $this->session
-            ];
-            echo view('layouts/header');
-            echo view('layouts/aside', $data);
-            echo view('admin/material/vedit', $data);
-            echo view('layouts/footer');
-        } elseif ($var == '_') {
-            $mat = $this->mparteorden->obtenerMaterialconIdMat($id);
-            $IdParte = $mat->IdParte;
-            $this->mparteorden->mdeletematerial($id);
-            return redirect()->to(base_url('mantenimiento/cparteorden/cedit/'.$IdParte));
-        } else {
-            // Código para otras opciones
-        }
+    if ($var == '@') {
+        $data = [
+            'materialedit' => $this->mparteorden->midupdatematerial($id),
+            'roles' => $this->mroles->obtener($idrol),
+            'session'=> $this->session
+        ];
+        return view('layouts/header')
+            . view('layouts/aside', $data)
+            . view('admin/material/vedit', $data)
+            . view('layouts/footer');
+    } elseif ($var == '_') {
+        $mat = $this->mparteorden->obtenerMaterialconIdMat($id);
+        $IdParte = $mat->IdParte;
+        $this->mparteorden->mdeletematerial($id);
+        return redirect()->to(base_url('mantenimiento/cparteorden/cedit/' . $IdParte));
+    } elseif (strpos($id, 'ref') !== false) {
+        $id = str_replace('ref', ';', $id);
+        list($idParte, $dni) = explode(';', $id);
+        $this->mparteorden->mdeletetecnicoOrden($idParte, $dni);
+        return redirect()->to(base_url('mantenimiento/cparteorden/cedit/' . $idParte));
+    } else {
+        $parteordenedit = $this->mparteorden->midupdateparteorden($id);
+        $idOrden = $parteordenedit->IdOrden;
+        $idParte = $parteordenedit->IdParte;
+
+        $data = [
+            'parteordenedit' => $parteordenedit,
+            'tipo_tecnico_select' => $this->mparteorden->tecnico_listar_select(),
+            'tecnico_select' => $this->mparteorden->mselectTecnicoIdParte($id),
+            'roles' => $this->mroles->obtener($idrol),
+            'material' => $this->mparteorden->obtenerMaterial($idOrden, $idParte),
+            'Gastos' => $this->morden->consultaGatosTotales($idParte),
+            'select_items' => $selectItems,
+            'session' => $this->session
+        ];
+
+        // Cálculo del tiempo entre FechaInicio y FechaFin
+        $date1 = new DateTime($parteordenedit->FechaInicio);
+        $date2 = new DateTime($parteordenedit->FechaFin);
+        $interval = $date1->diff($date2);
+        $data['hora'] = $interval->format('%H:%I:%S');
+
+        return view('layouts/header')
+            . view('layouts/aside', $data)
+            . view('admin/parteorden/vedit', $data)
+            . view('layouts/footer');
     }
+}
+
 
     public function cupdate() {
         $idparte = $this->request->getPost('txtidParte');

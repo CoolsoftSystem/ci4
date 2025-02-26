@@ -40,6 +40,8 @@ $routes->get('mantenimiento/cusuario/cadd', 'Cusuario::cadd');
 
 //GET de todos los edit
 $routes->get('mantenimiento/corden/cedit/(:num)', 'Corden::cedit/$1');
+$routes->get('mantenimiento/cparteorden/cedit/(:num)', 'Cparteorden::cedit/$1');
+$routes->get('mantenimiento/cparteorden/ceditMat/(:num)', 'Cparteorden::cedit/$1');
 $routes->get('mantenimiento/ccliente/cedit/(:num)', 'Ccliente::cedit/$1');
 $routes->get('mantenimiento/cequipos/cedit/(:num)', 'Cequipos::cedit/$1');
 $routes->get('mantenimiento/cproveedores/cedit/(:num)', 'Cproveedores::cedit/$1');
@@ -65,6 +67,8 @@ $routes->post('mantenimiento/cusuario/cinsert', 'Cusuario::cinsert');
 
 //Post de todos los delete
 $routes->post('mantenimiento/corden/cdelete/(:num)', 'Corden::cdelete/$1');
+$routes->post('mantenimiento/cparteorden/cdelete/(:num)', 'Cparteorden::cdelete/$1');
+$routes->post('mantenimiento/cparteorden/cdeleteMat/(:num)', 'Cparteorden::cdeleteMat/$1');
 $routes->post('mantenimiento/ccliente/cdelete/(:num)', 'Ccliente::cdelete/$1');
 $routes->post('mantenimiento/cequipos/cdelete/(:num)', 'Cequipos::cdelete/$1');
 $routes->post('mantenimiento/cproveedores/cdelete/(:num)', 'Cproveedores::cdelete/$1');
@@ -75,6 +79,7 @@ $routes->post('mantenimiento/cusuario/cdelete/(:num)', 'Cusuario::cdelete/$1');
 
 //Post de todos los edit
 $routes->post('mantenimiento/corden/cupdate', 'Corden::cupdate');
+$routes->post('mantenimiento/cparteorden/cupdate', 'Cparteorden::cupdate');
 $routes->post('mantenimiento/ccliente/cupdate', 'Ccliente::cupdate');
 $routes->post('mantenimiento/cequipos/cupdate', 'Cequipos::cupdate');
 $routes->post('mantenimiento/cproveedores/cupdate', 'Cproveedores::cupdate');

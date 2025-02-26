@@ -42,9 +42,9 @@
                     </div>
                     <div class="col-md-12">
                         <H3>LISTA DE TAREAS</H3>
-                        <?php if (session()->getFlashdata('error')) : ?>
+                        <?php if ($session->getFlashdata('error')) : ?>
                             <div class="alert alert-danger">
-                                <p><?php echo session()->getFlashdata('error') ?> </p>
+                                <p><?php echo $session->getFlashdata('error') ?> </p>
                             </div>
                         <?php endif; ?>
 

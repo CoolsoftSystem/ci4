@@ -50,7 +50,9 @@
   </div>
   <div class="col-md-5 form-group">
     <label for="cliente">Cliente&nbsp;&nbsp; (*)</label>
-    <?php $select_items->sin_buscador2($cliente_select, $ordenedit->IdCliente ?? '', 'cliente', '1', !empty($consultar) ? "disabled" : 'required'); ?>
+    <?php 
+        echo $select_items->sin_buscador2($cliente_select, $ordenedit->IdCliente, 'cliente', '1', !empty($consultar) ? 'disabled' : 'required');
+    ?>
     <input id="cliente_hidden" name="cliente_hidden" type="hidden">
   </div>
   <div class="col-sm-12 form-group">

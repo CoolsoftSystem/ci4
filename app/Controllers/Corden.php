@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SelectItems;
+
 use App\Models\Morden;
 use App\Models\Mroles;
 use App\Models\Mcombo;
@@ -108,13 +110,20 @@ class Corden extends BaseController
 
     public function cedit($id)
     {
+        $selectItems = new SelectItems();
         $idrol = $this->session->get("idRol");
 
+        $ordenedit = $this->morden->midupdateordenyfacturas($id);
+        $roles = $this->mroles->obtener($idrol);
+        $cliente_select = $this->morden->cliente_listar_select2();
+        $model = $this->morden->obtener($ordenedit->IdCliente);
+
         $data = [
-            'ordenedit' => $this->morden->midupdateordenyfacturas($id),
-            'roles' => $this->mroles->obtener($idrol),
-            'cliente_select' => $this->morden->cliente_listar_select2(),
-            'model' => $this->morden->obtener($data['ordenedit']->IdCliente),
+            'ordenedit' => $ordenedit,
+            'roles' => $roles,
+            'cliente_select' => $cliente_select,
+            'model' => $model,
+            'select_items' => $selectItems,
             'session' => $this->session
         ];
 

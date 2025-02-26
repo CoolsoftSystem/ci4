@@ -152,7 +152,7 @@ class Morden extends Model
     {
         $sql = "
             SELECT DISTINCT 
-                cliente.IdCliente AS ID, 
+                cliente.IdCliente AS IdCliente, 
                 cliente.Nombre AS NOMBRE
             FROM cliente
             WHERE cliente.Anulado = 0

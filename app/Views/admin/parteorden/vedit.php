@@ -21,29 +21,31 @@
                             <input type="hidden" value="<?php echo $parteordenedit->IdParte ?>" name="txtidParte" id="txtidParte">
                             <div class=" col-sm-3 form-group">
                                 <label for="fechaInicio">FechaInicio</label>
-                                <input type="string" id="txtfechaInicio" name="txtfechaInicio" value="<?php echo !empty(form_error('txtfechaInicio'))? set_value('txtfechaInicio') : $parteordenedit->FechaInicio ?>" class= "form-control"   >
+                                <input type="string" id="txtfechaInicio" name="txtfechaInicio"  value="<?= isset($parteordenedit->FechaInicio) ? date("d-m-Y", strtotime($parteordenedit->FechaInicio)) : '' ?>" class= "form-control"   >
                             </div>
                             <div class=" col-sm-3 form-group">
                                 <label for="fechaInicio">FechaFin</label>
-                                <input type="string" id="txtfechaFin" name="txtfechaFin" value="<?php echo !empty(form_error('txtfechaFin'))? set_value('txtfechaFin') : $parteordenedit->FechaFin ?>" class= "form-control"   >
+                                <input type="string" id="txtfechaFin" name="txtfechaFin"  value="<?= isset($parteordenedit->FechaFin) ? date("d-m-Y", strtotime($parteordenedit->FechaFin)) : '' ?>" class= "form-control"   >
                             </div>
                             <div class=" col-sm-2 form-group">
                                 <label for="fechaTranscurrido">Tiempo Transcurrido</label>
-                                <input type="string" id="txtTranscurrido" name="txtTranscurrido" value="<?php echo !empty(form_error('txtTranscurrido'))? set_value('txtTranscurrido') : $hora ?>" class= "form-control"   disabled>
+                                <input type="string" id="txtTranscurrido" name="txtTranscurrido" value="<?= esc($hora ?? '') ?>" class= "form-control"   disabled>
                             </div>
                             <div class=" col-sm-3 form-group">
                                 <label for="txtgastos">Gastos</label>
-                                <input type="string" id="txtgastos" name="txtgastos" value="<?php echo !empty(form_error('txtgastos'))? set_value('txtgastos') : $Gastos ?>" class= "form-control"   disabled>
+                                <input type="string" id="txtgastos" name="txtgastos" value="<?= esc($Gastos ?? '') ?>" class= "form-control"   disabled>
                             </div>
                             <div class="col-md-1 form-group">
                                 <label>Completa</label><br>
-                                <input class="chk_input" type="checkbox" id="habilitado" name="habilitado" data-width="20" data-height="20" disabled <?=(!empty($parteordenedit->Completa)&&$parteordenedit->Completa=="1")?'checked':''?> <?=(!empty($consultar)) ? "disabled" : "";?> <?=(!isset($parteordenedit->Completa))?'checked':''?> />
+                                <input class="chk_input" type="checkbox" id="habilitado" name="habilitado" data-width="20" data-height="20" disabled  <?= (!empty($parteordenedit->Completada) && $parteordenedit->Completada == "1") ? 'checked' : '' ?> 
+                                 <?= !empty($consultar) ? "disabled" : "";?> 
+                                 <?= !isset($parteordenedit->Completada) ? 'checked' : '' ?> />
                                 <span class="checkmark"></span>
                             </div>
 
                             <div class="col-sm-12 form-group">
                                 <label for="tarea">Tarea</label>
-                                <input type="text" id="txttarea" name="txttarea" maxlength="1000" value="<?php echo !empty(form_error('txtctarea'))? set_value('txttarea') : $parteordenedit->TareaDesarrollada ?>" class= "form-control" required >
+                                <input type="text" id="txttarea" name="txttarea" maxlength="1000"  value="<?= $parteordenedit->TareaDesarrollada ?? '' ?>" class= "form-control" required >
                             </div>
 
                             <div class="col-sm-12 form-group">
@@ -56,9 +58,9 @@
                     </div>
                     <div class="col-md-6">
                       <div class="row">
-                        <?php if($this->session->flashdata('error')):?>
+                        <?php if($session->getFlashdata('error')):?>
                          <div class="alert alert-danger">
-                             <p><?php echo $this->session->flashdata('error') ?> </p>
+                             <p><?php echo $session->getFlashdata('error') ?> </p>
                          </div>
                          <?php endif ; ?>
 
@@ -70,7 +72,9 @@
                              <input type="hidden" value="<?php echo $parteordenedit->IdParte ?>" name="txtidParte" id="txtidParte">
                                <div class="col-sm-8 form-group" >
                                    <label class="control-label" for="tipo_tecnico">Técnico</label>
-                                   <?$this->select_items->sin_buscador($tipo_tecnico_select, '','tipo_tecnico','1', 'required');?>
+                                   <?php 
+                                    echo $select_items->sin_buscador($tipo_tecnico_select, '','tipo_tecnico','1', 'required');
+                                  ?>
                                </div>
 
                                <div class="col-sm-2">
@@ -109,9 +113,9 @@
                     </div>
                <div class="col-md-6">
                  <div class="row">
-                   <?php if($this->session->flashdata('error')):?>
+                   <?php if($session->getFlashdata('error')):?>
                     <div class="alert alert-danger">
-                        <p><?php echo $this->session->flashdata('error') ?> </p>
+                        <p><?php echo $session->getFlashdata('error') ?> </p>
                     </div>
                     <?php endif ; ?>
                     <form action="<?php echo base_url();?>mantenimiento/cparteorden/cupdate" method="POST">
@@ -122,15 +126,15 @@
                         <input type="hidden" value="<?php echo $parteordenedit->IdParte ?>" name="txtidParte" id="txtidParte">
                           <div class="col-sm-12 form-group">
                               <label for="material">Descripción</label>
-                              <input type="text" id="txtmaterial" name="txtmaterial" class="form-control"  value="<?php echo set_value('txtmaterial') ?>" >
+                              <input type="text" id="txtmaterial" name="txtmaterial" class="form-control"  value="<?= $material->Descripcion ?? '' ?>" >
                           </div>
                           <div class="col-sm-3 form-group">
                               <label for="cantidad">Cantidad</label>
-                              <input type="text" id="txtcantidad" name="txtcantidad" class="form-control" value="<?php echo set_value('txtcantidad') ?>" >
+                              <input type="text" id="txtcantidad" name="txtcantidad" class="form-control" value="<?= $material->Cantidad ?? '' ?>" >
                           </div>
                           <div class="col-sm-3 form-group">
                               <label for="precio">Precio</label>
-                              <input type="number" id="txtprecio" name="txtprecio" class="form-control" step=".01" value="<?php echo set_value('txtprecio') ?>" >
+                              <input type="number" id="txtprecio" name="txtprecio" class="form-control" step=".01" value="<?= $material->Precio ?? '' ?>" >
                           </div>
                           <div class="col-sm-2">
                             <br>
