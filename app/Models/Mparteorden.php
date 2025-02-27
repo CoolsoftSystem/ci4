@@ -172,6 +172,31 @@ class Mparteorden extends Model
         );
     }
 
+    //Cargar Tecnico Orden
+
+    public function cargarTecnicoOrden($data){
+        return $this->db->table('tecnicoorden')->insert($data);
+    }
+
+    //Eliminar TecnicoOrden
+    public function mdeletetecnicoOrden($IdParte,$Dni)
+    {
+        $this->db->table('tecnicoorden')
+            ->where('IdParte', $IdParte)
+            ->where('Dni', $Dni)
+            ->delete(); // Elimina el registro que cumple con las condiciones
+    }
+
+    //Trae Tecnico con el dni
+    public function nombreTecnico($Dni)
+    {
+        return $this->db->table('tecnicoorden')
+            ->where('Dni', $Dni)
+            ->get()
+            ->getRow();;
+    }
+
+
     // FUNCIONES DE HORAS
     public function suma_horas($hora1, $hora2)
     {
@@ -198,4 +223,6 @@ class Mparteorden extends Model
 
         return sprintf('%02d:%02d:%02d', $horas, $minutos, $segundos);
     }
+
+
 }

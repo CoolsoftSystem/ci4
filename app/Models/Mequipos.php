@@ -9,9 +9,15 @@ class Mequipos extends Model
     protected $table = 'recepcionequipos'; // Tabla principal
     protected $primaryKey = 'num_orden';   // Clave primaria
     protected $allowedFields = [
-        'fecha', 'marca', 'modelo', 'num_serie', 
-        'sector', 'descripcion', 'accesorios', 
-        'id_cliente', 'anulado'
+        'fecha',
+        'marca',
+        'modelo',
+        'num_serie',
+        'sector',
+        'descripcion',
+        'accesorios',
+        'id_cliente',
+        'anulado'
     ];
 
     // MOSTRAR orden equipos

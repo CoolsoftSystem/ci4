@@ -188,4 +188,11 @@ class Cparteorden extends BaseController {
 
         echo json_encode(['linksa' => $tecnicoNombre]);
     }
+
+    public function ceditTecnico($idParte,$tecnico)
+    {
+        $this->mparteorden->mdeletetecnicoOrden($idParte, $tecnico);
+        //redirect(base_url().'mantenimiento/cparteorden/cedit/'.$idParte);
+        echo "mantenimiento/cparteorden/cedit/$idParte";  
+    }
 }

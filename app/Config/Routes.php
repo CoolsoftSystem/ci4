@@ -42,6 +42,7 @@ $routes->get('mantenimiento/cusuario/cadd', 'Cusuario::cadd');
 $routes->get('mantenimiento/corden/cedit/(:num)', 'Corden::cedit/$1');
 $routes->get('mantenimiento/cparteorden/cedit/(:num)', 'Cparteorden::cedit/$1');
 $routes->get('mantenimiento/cparteorden/ceditMat/(:num)', 'Cparteorden::cedit/$1');
+$routes->get('mantenimiento/cparteorden/cedittecnico/(:num)/(:num)', 'Cparteorden::ceditTecnico/$1/$2');
 $routes->get('mantenimiento/ccliente/cedit/(:num)', 'Ccliente::cedit/$1');
 $routes->get('mantenimiento/cequipos/cedit/(:num)', 'Cequipos::cedit/$1');
 $routes->get('mantenimiento/cproveedores/cedit/(:num)', 'Cproveedores::cedit/$1');
@@ -64,6 +65,7 @@ $routes->post('mantenimiento/cremitos/cinsert', 'Cremitos::cinsert');
 $routes->post('mantenimiento/croles/cinsert', 'Croles::cinsert');
 $routes->post('mantenimiento/ctecnico/cinsert', 'Ctecnico::cinsert');
 $routes->post('mantenimiento/cusuario/cinsert', 'Cusuario::cinsert');
+$routes->post('mantenimiento/cparteorden/addtecnicoorden', 'Cparteorden::addTecnicoOrden');
 
 //Post de todos los delete
 $routes->post('mantenimiento/corden/cdelete/(:num)', 'Corden::cdelete/$1');

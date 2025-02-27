@@ -148,8 +148,6 @@ class Ccliente extends BaseController
         $nvta = $this->request->getPost('txtnvta');
         $ncial = $this->request->getPost('txtncial');
 
-        log_message('debug', "Valor de localidad: " .$localidad);
-
         // Verificar si el cliente ya existe
         $cli = $this->mcliente->obtenerclientedni($cuit);
 
@@ -173,7 +171,7 @@ class Ccliente extends BaseController
                 'Domicilio' => $domicilio
             ];
 
-            if ($this->mcliente->mupdatecliente($idcliente, $data)) {
+            if ($this->mcliente->mupdatecliente($idcliente, data: $data)) {
                 // Mensaje de éxito
                 session()->setFlashdata('correcto', 'Se guardó correctamente');
                 return redirect()->to(base_url('mantenimiento/ccliente'));

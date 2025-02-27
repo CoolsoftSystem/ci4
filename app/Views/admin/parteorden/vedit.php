@@ -97,7 +97,7 @@
                                                          <td ><?php echo $atributos->Nombre; ?></td>
                                                          <td>
                                                              <div >
-                                                               <a title="Eliminar" href="<?php echo base_url(); ?>mantenimiento/cparteorden/ceditTecnico/<?php  echo $atributos->IdParte; ?>/<?php echo $atributos->Dni; ?>" class="btn btn-danger btn-remove deleteTecnicoTarea">
+                                                               <a title="Eliminar" href="<?php echo base_url(); ?>mantenimiento/cparteorden/cedittecnico/<?php  echo $atributos->IdParte; ?>/<?php echo $atributos->Dni; ?>" class="btn btn-danger btn-remove deleteTecnicoTarea">
                                                                    <span class="fa fa-remove"></span>
                                                                </a>
                                                              </div>
@@ -273,7 +273,7 @@ $(document).ready(function(){
 
                 $.ajax( {
                         method:'POST',
-                        url:'<?php echo base_url(); ?>' + 'mantenimiento/Cparteorden/addTecnicoOrden',
+                        url:'<?php echo base_url(); ?>' + 'mantenimiento/cparteorden/addtecnicoorden',
                         dataType:'html',
                         data:{tecnico:tecnico,idParte:idParte}})
                         .done(function(r) {
