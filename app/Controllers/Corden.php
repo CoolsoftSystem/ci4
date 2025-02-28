@@ -118,6 +118,7 @@ class Corden extends BaseController
         $cliente_select = $this->morden->cliente_listar_select2();
         $model = $this->morden->obtener($ordenedit->IdCliente);
 
+
         $data = [
             'ordenedit' => $ordenedit,
             'roles' => $roles,
@@ -137,6 +138,7 @@ class Corden extends BaseController
     {
         $data = [
             'Precio' => $this->request->getPost('txtprecio'),
+            'FechaRecepcion' => date("Y/m/d", strtotime($this->request->getPost('txtfecha'))),
             'TareaDesarrollar' => $this->request->getPost('txttarea'),
             'IdCliente' => mb_strtoupper($this->request->getPost("cliente")),
             'Completada' => $this->request->getPost('habilitado') === 'on' ? 1 : 0,
@@ -156,22 +158,26 @@ class Corden extends BaseController
     {
         $fpago = $this->request->getPost('txtfechaPago');
         $ffact = $this->request->getPost('txtfechaFactura');
+        $nfactura = $this->request->getPost('txtnumFactura');
+        $estado = $this->request->getPost('txtpago');
+        $idorden = $this->request->getPost('txtidorden');
+        $idfact = $this->request->getPost('txtid');
 
         $data = [
-            'N_factura' => $this->request->getPost('txtnumFactura'),
+            'N_factura' => $nfactura,
             'fecha_factura' => $ffact ? date("Y/m/d", strtotime($ffact)) : null,
             'fecha_pago' => $fpago ? date("Y/m/d", strtotime($fpago)) : null,
-            'estado_pago' => $this->request->getPost('txtpago'),
-            'id_orden' => $this->request->getPost('txtidorden')
+            'estado_pago' => $estado,
+            'id_orden' => $idorden
         ];
 
-        $res = $this->mfactura->midupdatefact($data['N_factura']);
-        $fac = $this->mfactura->mbuscaordenfactura($data['id_orden']);
+        $res = $this->mfactura->midupdatefact($nfactura,$idorden);
+        $fac = $this->mfactura->mbuscaordenfactura($idorden);
 
         if ($res == null && $fac == null) {
             $res = $this->mfactura->minsertfactura($data);
         } else {
-            $res = $this->mfactura->mupdatefact($this->request->getPost('txtid'), $data['id_orden'], $data);
+            $res = $this->mfactura->mupdatefact($idfact, $idorden, $data);
         }
 
         if ($res) {
@@ -179,7 +185,7 @@ class Corden extends BaseController
             return redirect()->to(base_url().'mantenimiento/corden');
         } else {
             $this->session->setFlashdata('error', 'No se pudo actualizar la factura');
-            return redirect()->to(base_url().'mantenimiento/corden/cedit/'.$data['id_orden']);
+            return redirect()->to(base_url().'mantenimiento/corden/cedit/'.$idorden);
         }
     }
 

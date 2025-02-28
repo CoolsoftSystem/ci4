@@ -19,14 +19,50 @@
                         <form action="<?php echo base_url();?>mantenimiento/cparteorden/cupdate" method="POST">
                             <input type="hidden" value="<?php echo $parteordenedit->IdOrden ?>" name="txtidorden" id="txtidorden">
                             <input type="hidden" value="<?php echo $parteordenedit->IdParte ?>" name="txtidParte" id="txtidParte">
-                            <div class=" col-sm-3 form-group">
-                                <label for="fechaInicio">FechaInicio</label>
-                                <input type="string" id="txtfechaInicio" name="txtfechaInicio"  value="<?= isset($parteordenedit->FechaInicio) ? date("d-m-Y", strtotime($parteordenedit->FechaInicio)) : '' ?>" class= "form-control"   >
-                            </div>
-                            <div class=" col-sm-3 form-group">
-                                <label for="fechaInicio">FechaFin</label>
-                                <input type="string" id="txtfechaFin" name="txtfechaFin"  value="<?= isset($parteordenedit->FechaFin) ? date("d-m-Y", strtotime($parteordenedit->FechaFin)) : '' ?>" class= "form-control"   >
-                            </div>
+                            <?php $validation = \Config\Services::validation(); ?>
+
+<div class="col-sm-3 form-group">
+    <label for="fechaInicio">Fecha Inicio</label>
+    <input type="datetime-local" id="txtfechaInicio" name="txtfechaInicio"
+        value="<?php 
+            if (!empty($validation->getError('txtfechaInicio'))) {
+                echo old('txtfechaInicio');
+            } elseif (!empty($parteordenedit->FechaInicio)) {
+                echo date('Y-m-d\TH:i', strtotime($parteordenedit->FechaInicio));
+            } else {
+                echo ''; // Si es NULL, muestra vacío
+            }
+        ?>" 
+        class="form-control"
+        min="2020-01-01T00:00" 
+        max="<?php echo date('Y-m-d\TH:i'); ?>">
+    <?php if ($validation->getError('txtfechaInicio')) : ?>
+        <small class="text-danger"><?php echo $validation->getError('txtfechaInicio'); ?></small>
+    <?php endif; ?>
+</div>
+
+<div class="col-sm-3 form-group">
+    <label for="fechaFin">Fecha Fin</label>
+    <input type="datetime-local" id="txtfechaFin" name="txtfechaFin"
+        value="<?php 
+            if (!empty($validation->getError('txtfechaFin'))) {
+                echo old('txtfechaFin');
+            } elseif (!empty($parteordenedit->FechaFin)) {
+                echo date('Y-m-d\TH:i', strtotime($parteordenedit->FechaFin));
+            } else {
+                echo ''; // Si es NULL, muestra vacío
+            }
+        ?>" 
+        class="form-control"
+        min="2020-01-01T00:00" 
+        max="<?php echo date('Y-m-d\TH:i'); ?>">
+    <?php if ($validation->getError('txtfechaFin')) : ?>
+        <small class="text-danger"><?php echo $validation->getError('txtfechaFin'); ?></small>
+    <?php endif; ?>
+</div>
+
+
+
                             <div class=" col-sm-2 form-group">
                                 <label for="fechaTranscurrido">Tiempo Transcurrido</label>
                                 <input type="string" id="txtTranscurrido" name="txtTranscurrido" value="<?= esc($hora ?? '') ?>" class= "form-control"   disabled>

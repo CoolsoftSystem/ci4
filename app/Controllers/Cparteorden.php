@@ -127,13 +127,17 @@ class Cparteorden extends BaseController {
         $idparte = $this->request->getPost('txtidParte');
         $idorden = $this->request->getPost('txtidorden');
         $tarea = $this->request->getPost('txttarea');
-        $txtfechaInicio = $this->request->getPost('txtfechaInicio');
-        $txtfechaFin = $this->request->getPost('txtfechaFin');
+        $fechaInicio = $this->request->getPost('txtfechaInicio');
+        $fechaFin = $this->request->getPost('txtfechaFin');
+        
+        // Convertir al formato de base de datos ( usa DATETIME)
+        $fechaInicio = date('Y-m-d H:i:s', strtotime($fechaInicio));
+        $fechaFin = date('Y-m-d H:i:s', strtotime($fechaFin));
 
         $data = [
             'TareaDesarrollada' => $tarea,
-            'FechaInicio' => $txtfechaInicio,
-            'FechaFin' => $txtfechaFin,
+            'FechaInicio' => $fechaInicio,
+            'FechaFin' => $fechaFin,
         ];
 
         $res = $this->mparteorden->mupdateparteorden($idparte, $idorden, $data);
@@ -166,6 +170,56 @@ class Cparteorden extends BaseController {
 
         echo json_encode(['linksa' => $res]);
     }
+
+    public function ceditMat($id)
+{
+    $idrol = $this->session->get('idRol'); 
+
+    $data = [
+        'materialedit' => $this->mparteorden->midupdatematerial($id),
+        'roles' => $this->mroles->obtener($idrol),
+        'session' => $this->session 
+    ];
+
+    return view('layouts/header')
+        . view('layouts/aside', $data)
+        . view('admin/material/vedit', $data)
+        . view('layouts/footer');
+}
+
+public function cupdateMat()
+{
+    $descripcion = $this->request->getPost('txtdescripcion');
+    $cantidad = $this->request->getPost('txtcantidad');
+    $precio = $this->request->getPost('txtprecio');
+    $id = $this->request->getPost('txtid');
+
+    $mat = $this->mparteorden->obtenerMaterialconIdMat($id);
+
+    if (!$mat) {
+        return redirect()->to(base_url('mantenimiento/cparteorden'))->with('error', 'Material no encontrado');
+    }
+
+    $IdParte = $mat->IdParte;
+
+    $data = [
+        'Descripcion' => $descripcion,
+        'Cantidad' => $cantidad,
+        'Precio' => $precio
+    ];
+
+    $res = $this->mparteorden->mupdatematerial($id, $data);
+
+    if ($res) {
+        return redirect()->to(base_url('mantenimiento/cparteorden/cedit/' . $IdParte))
+            ->with('correcto', 'Se guardó correctamente');
+    } else {
+        return redirect()->to(base_url('mantenimiento/cparteorden/cedit/' . $IdParte))
+            ->with('error', 'No se pudo actualizar la parteorden');
+    }
+}
+
+
 
     public function cdeleteMat($id) {
         $mat = $this->mparteorden->obtenerMaterialconIdMat($id);

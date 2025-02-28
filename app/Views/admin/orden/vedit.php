@@ -24,9 +24,9 @@
   </div>
   <div class="col-sm-3 form-group">
     <label for="fecha">Fecha de Recepción</label>
-    <input type="text" id="txtfecha" name="txtfecha" min="2020-01-01" max="2100-12-31" 
-      value="<?= isset($ordenedit->FechaRecepcion) ? date("d-m-Y", strtotime($ordenedit->FechaRecepcion)) : '' ?>" 
-      class="form-control">
+    <input type="text" id="txtfecha" name="txtfecha" class="form-control" 
+    value="<?= date('d-m-Y', strtotime($ordenedit->FechaRecepcion))?>"
+    min="2020-01-01" max="2100-12-31">
   </div>
   <div class="col-sm-3 form-group">
     <label for="precio">Precio</label>

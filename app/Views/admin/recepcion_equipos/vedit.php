@@ -24,7 +24,7 @@
     <div class="form-group col-sm-2">
         <label for="txtfecha">Fecha</label>
         <input type="text" id="txtfecha" name="txtfecha" class="form-control" 
-               value="<?= date('d/m/Y', strtotime($equiposedit->fecha)) ?>" 
+               value="<?= date('d-m-Y', strtotime($equiposedit->fecha)) ?>" 
                min="2020-01-01" max="2100-12-31">
     </div>
 
