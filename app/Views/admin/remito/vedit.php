@@ -137,7 +137,7 @@ $(document).ready(function(){
       
         if((producto=='') || (cant=='') || (numSerie=='')  ){
             
-            window.location.href=base_url+'/mantenimiento/cremitos/cError/'+idRemito;
+            window.location.href=base_url+'mantenimiento/cremitos/cError/'+idRemito;
         }else{
 
         $('#txtproducto').val('');
@@ -155,10 +155,10 @@ $(document).ready(function(){
                                         //alert(r);
                                     if(r==0){
                                         //alert("entra al if");
-                                        window.location.href=base_url+'/mantenimiento/cremitos/cErrorCantidad/'+idRemito;
+                                        window.location.href=base_url+'mantenimiento/cremitos/cErrorCantidad/'+idRemito;
                                     }else if(r==1) {
                                         //alert("no entra al if");
-                                        window.location.href=base_url+'/mantenimiento/cremitos/cedit/'+idRemito;
+                                        window.location.href=base_url+'mantenimiento/cremitos/cedit/'+idRemito;
                                             //$("#tbody1").append(r['linksa']);
                                     }
                                         

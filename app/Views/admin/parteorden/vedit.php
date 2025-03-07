@@ -249,7 +249,7 @@ $(document).ready(function(){
 
             $.ajax( {
                                 method:'POST',
-                                url:'<?php echo base_url(); ?>' + 'mantenimiento/Cparteorden/addMaterial',
+                                url:'<?php echo base_url(); ?>' + 'mantenimiento/cparteorden/addmaterial',
                                 dataType:'html',
                                 data:{material:material,idOrden:idOrden,idParte:idParte,cant:cant,precio:precio}})
                                 .done(function(r) {

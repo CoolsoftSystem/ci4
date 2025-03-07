@@ -617,7 +617,7 @@ $(".deleteRoles").on("click", function(e){//
                     type: "POST",
                     success:function(res){
                       //alert(res);
-                      window.location.href=base_url+res;
+                      window.location.href = res.redirect;
                     }
                   });
                 }else{
@@ -739,7 +739,7 @@ $(".deleteTecnicoTarea").on("click", function(e){//
                     success:function(res){
                       //alert(res);
                       
-                      window.location.href=base_url+res;
+                      window.location.href = res.redirect;
                     }
                   });
                 }else{

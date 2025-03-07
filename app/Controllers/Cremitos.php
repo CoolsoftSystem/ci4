@@ -280,6 +280,7 @@ class Cremitos extends BaseController
     public function cError($idRemito)
     {
         $this->session->setFlashdata('error', 'Faltan datos del producto');
+        // return $this->response->setJSON(['status' => 'success', 'redirect' => base_url('mantenimiento/cremitos/cedit/' . $idRemito)]);
         return redirect()->to(base_url('mantenimiento/cremitos/cedit/' . $idRemito));
     }
 }

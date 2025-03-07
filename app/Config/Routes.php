@@ -62,15 +62,17 @@ $routes->post('mantenimiento/ccliente/cinsert', 'Ccliente::cinsert');
 $routes->post('mantenimiento/cequipos/cinsert', 'Cequipos::cinsert');
 $routes->post('mantenimiento/cproveedores/cinsert', 'Cproveedores::cinsert');
 $routes->post('mantenimiento/cremitos/cinsert', 'Cremitos::cinsert');
+$routes->post('mantenimiento/cremitos/addProducto', 'Cremitos::addProducto');
 $routes->post('mantenimiento/croles/cinsert', 'Croles::cinsert');
 $routes->post('mantenimiento/ctecnico/cinsert', 'Ctecnico::cinsert');
-$routes->post('mantenimiento/cusuario/cinsert', 'Cusuario::cinsert');
-$routes->post('mantenimiento/cparteorden/addtecnicoorden', 'Cparteorden::addTecnicoOrden');
+$routes->post('mantenimiento/cparteorden/cinsert/(:num)', 'Cparteorden::cinsert/$1');
 $routes->post('mantenimiento/cparteorden/addmaterial', 'Cparteorden::addMaterial');
+$routes->post('mantenimiento/cparteorden/addtecnicoorden', 'Cparteorden::addTecnicoOrden');
+
 
 //Post de todos los delete
 $routes->post('mantenimiento/corden/cdelete/(:num)', 'Corden::cdelete/$1');
-$routes->post('mantenimiento/cparteorden/cdelete/(:num)', 'Cparteorden::cdelete/$1');
+$routes->post('mantenimiento/cparteorden/cdelete/(:num)/(:num)', 'Cparteorden::cdelete/$1/$2');
 $routes->post('mantenimiento/cparteorden/cdeleteMat/(:num)', 'Cparteorden::cdeleteMat/$1');
 $routes->post('mantenimiento/ccliente/cdelete/(:num)', 'Ccliente::cdelete/$1');
 $routes->post('mantenimiento/cequipos/cdelete/(:num)', 'Cequipos::cdelete/$1');
@@ -93,3 +95,5 @@ $routes->post('mantenimiento/cremitos/cupdateProd', 'Cremitos::cupdateProd');
 $routes->post('mantenimiento/croles/cupdate', 'Croles::cupdate');
 $routes->post('mantenimiento/ctecnico/cupdate', 'Ctecnico::cupdate');
 $routes->post('mantenimiento/cusuario/cupdate', 'Cusuario::cupdate');
+
+$routes->get('mantenimiento/cremitos/cError/(:num)', 'Cremitos::cError/$1');

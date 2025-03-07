@@ -151,6 +151,22 @@ class Cparteorden extends BaseController {
         }
     }
 
+    public function cdelete($IdParte ,$IdOrden){
+
+        /*$orden = $this->mparteorden->mselectinfoparteorden($id);
+        $idorden= $orden->idorden;
+        $this->mparteorden->mupdateparteorden($id);
+        redirect(base_url().'mantenimiento/cparteorden/listar/'.$idorden);*/
+    
+    
+        $data=array(
+            'Anulado' => '1'
+        );
+        $this->mparteorden->mupdateparteorden($IdParte ,$IdOrden,$data);
+        //redirect(base_url().'mantenimiento/cparteorden/listar/'.$IdOrden);
+        echo "mantenimiento/cparteorden/listar/$IdOrden";
+    }
+
     public function addMaterial() {
         $material = $this->request->getPost("material");
         $idParte = $this->request->getPost("idParte");

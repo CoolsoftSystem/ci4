@@ -137,11 +137,11 @@ class Cproveedores extends BaseController
         $data = ['Anulado' => '1'];
 
         if ($this->mproveedores->updateProveedor($id, $data)) {
-            $this->session->setFlashdata('correcto', 'Proveedor eliminado correctamente.');
+            session()->setFlashdata('correcto', 'Proveedor eliminado correctamente.');
+            return $this->response->setJSON(['status' => 'success', 'redirect' => base_url('mantenimiento/cproveedores')]);
         } else {
-            $this->session->setFlashdata('error', 'No se pudo eliminar el proveedor.');
+            session()->setFlashdata('error', 'No se pudo eliminar el proveedor.');
+            return $this->response->setJSON(['status' => 'error']);
         }
-
-        return redirect()->to(base_url('mantenimiento/cproveedores'));
     }
 }

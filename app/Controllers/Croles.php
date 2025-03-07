@@ -146,8 +146,7 @@ class Croles extends BaseController
     {
         $data = ['anulado' => '1'];
         $this->mroles->mupdateroles($id, $data);
-        
-        return redirect()->to(base_url('mantenimiento/croles'));
+        return $this->response->setJSON(['status' => 'success', 'redirect' => base_url('mantenimiento/croles')]);
     }
 }
 

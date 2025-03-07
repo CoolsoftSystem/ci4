@@ -86,7 +86,9 @@ class Mroles extends Model
     // Verificar si existe un rol
     public function obtenerrol($rol)
     {
-        return $this->where('nombre_tipo', $rol)->first();
+        return $this->where('nombre_tipo', $rol)
+            ->where('anulado', 0)
+            ->first();
     }
 
     public function obtenerroles($roles)
